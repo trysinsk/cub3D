@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/13 13:05:27 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:46:43 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 
-# include "map_checking.h"
 
 # define S_W 1900 // screen width
 # define S_H 1000 // screen height
