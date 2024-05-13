@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/13 11:29:45 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:05:27 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,7 @@ typedef struct s_core
     t_ray       *ray;
     t_data      *data;
 }   t_core;
+
+int ft_extention_check(char *file);
 
 #endif
