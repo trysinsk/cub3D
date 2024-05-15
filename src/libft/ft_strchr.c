@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_checking_1.c                                   :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 12:22:55 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/13 13:04:24 by trysinsk         ###   ########.fr       */
+/*   Created: 2023/05/05 16:51:54 by trysinsk          #+#    #+#             */
+/*   Updated: 2024/05/15 10:24:35 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-
-int ft_extention_check(char *file)
+char	*ft_strchr(const char *s, int c)
 {
-    (void)file;
-    printf ("test\n");
-    return (0);
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == (unsigned char )c)
+			return ((char *)s + i);
+		i++;
+	}
+	if (c == 0)
+		return ((char *)s + i);
+	return (NULL);
 }

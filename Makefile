@@ -5,7 +5,15 @@ CFLAGS = -Wall -Werror -Wextra -I./include
 CC = cc
 
 SRCS = src/cub3D.c \
-		src/map_checking/map_checking_1.c \
+		src/map_checking/extention_check.c \
+		src/map_checking/parse_map_1.c \
+		src/error_managing/quit.c \
+		src/libft/ft_strchr.c \
+		src/libft/ft_strncmp.c \
+		src/get_next_line/get_next_line.c \
+		src/get_next_line/get_next_line_utils.c \
+
+
 
 
 OBJS = ${SRCS:.c=.o}

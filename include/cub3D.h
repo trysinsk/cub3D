@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/13 13:46:43 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:55:32 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ typedef struct s_data
     int     player_y;   //base y position on the map
     int     height;
     int     width;
+    char    *no;        //path to textures below
+    char    *so;
+    char    *we;
+    char    *ea;
+    char    *f;
+    char    *c;
 }   t_data;
 
 typedef struct s_core
@@ -82,6 +88,24 @@ typedef struct s_core
     t_data      *data;
 }   t_core;
 
-int ft_extention_check(char *file);
+//     libft and get_next_line
+
+char	*ft_strjoin(char *s1, char *s2);
+int	    ft_find_line(char *str);
+int	    ft_strlen(char *str);
+char	*ft_strlcpy(char *dst, char *src, int j);
+int     ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strchr(const char *s, int c);
+char	*get_next_line(int fd);
+
+//     error and quiting
+
+void    ft_quit(char *str);
+
+//     map checking
+
+int		ft_extention_check(char *file);
+int     ft_parse_map(t_core **core, char *file, int index);
+
 
 #endif
