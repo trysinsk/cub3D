@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:53:29 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/15 13:38:46 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:27:08 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ int ft_parse_map(t_core *core, char *file, int index)
     printf ("EA: %s\n", (core)->data->ea);
     printf ("f: %s\n", (core)->data->f);
     printf ("c: %s\n", (core)->data->c);
+    if (ft_retrieve_map(core, fd, line) != 0)
+        return (1);
     return (0);
 
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mevonuk <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 09:55:06 by mevonuk           #+#    #+#              #
-#    Updated: 2024/01/15 12:57:53 by mevonuk          ###   ########.fr        #
+#    Updated: 2024/05/17 11:23:40 by trysinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ INC			=	-I ./includes/\
 
 # Sources
 SRC_PATH	=	src/
-MAP_CHECKING	=	$(addprefix map_checking/, extention_check.c parse_map_1.c)
+MAP_CHECKING	=	$(addprefix map_checking/, extention_check.c parse_map_1.c parse_map_2.c)
 ERROR_MANAGING	=	$(addprefix error_managing/, quit.c)
 SRC 			=	cub3D.c \
 					$(MAP_CHECKING) \

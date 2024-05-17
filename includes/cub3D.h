@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/15 12:55:32 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:26:39 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,7 @@ void    ft_quit(char *str);
 //     map checking
 int		ft_extention_check(char *file);
 int     ft_parse_map(t_core *core, char *file, int index);
+int     ft_retrieve_map(t_core *core, int fd, char *line);
+
 
 #endif
