@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mevonuk <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 16:51:54 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/15 10:24:35 by trysinsk         ###   ########.fr       */
+/*   Created: 2023/11/13 10:38:34 by mevonuk           #+#    #+#             */
+/*   Updated: 2023/12/14 13:13:12 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+// prints a string into a given file
+void	ft_putstr_fd(char *s, int fd)
 {
 	int	i;
 
+	if (s == NULL)
+		return ;
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] == (unsigned char )c)
-			return ((char *)s + i);
+		ft_putchar_fd(s[i], fd);
 		i++;
 	}
-	if (c == 0)
-		return ((char *)s + i);
-	return (NULL);
 }

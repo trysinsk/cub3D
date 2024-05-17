@@ -23,6 +23,7 @@ void    init_data(t_core **core)
         free(*core);
         ft_quit("error: allocation failed\n");
     }
+    ft_printf("Allocation of memory complete.\n");
 }
 
 int main(int argc, char **argv)
@@ -37,7 +38,7 @@ int main(int argc, char **argv)
     //initialisation of data
     init_data(&core);
     //then retrieving of the map info and map structure
-    if (ft_parse_map(&core, argv[1], 0) != 0)
+    if (ft_parse_map(core, argv[1], 0) != 0)
         ft_quit("unable to retrieve map info\n");
     //cheking of map conformity
     /*if (ft_check_map_integrity(core->data) != 0)

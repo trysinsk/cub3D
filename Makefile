@@ -1,35 +1,82 @@
-NAME = cub3D
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mevonuk <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/12/06 09:55:06 by mevonuk           #+#    #+#              #
+#    Updated: 2024/01/15 12:57:53 by mevonuk          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-CFLAGS = -Wall -Werror -Wextra -I./include
+NAME =		cub3d
 
-CC = cc
+# Compiler
+CC		= cc
+CFLAGS	= -Werror -Wextra -Wall
 
-SRCS = src/cub3D.c \
-		src/map_checking/extention_check.c \
-		src/map_checking/parse_map_1.c \
-		src/error_managing/quit.c \
-		src/libft/ft_strchr.c \
-		src/libft/ft_strncmp.c \
-		src/get_next_line/get_next_line.c \
-		src/get_next_line/get_next_line_utils.c \
+# Minilibx
+MLX_PATH	= minilibx-linux/
+MLX_NAME	= libmlx.a
+MLX			= $(MLX_PATH)$(MLX_NAME)
 
+# Libft
+LIBFT_PATH	= libft/
+LIBFT_NAME	= libft.a
+LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
 
+# Includes
+INC			=	-I ./includes/\
+				-I ./libft/\
+				-I ./minilibx-linux/
 
+# Sources
+SRC_PATH	=	src/
+MAP_CHECKING	=	$(addprefix map_checking/, extention_check.c parse_map_1.c)
+ERROR_MANAGING	=	$(addprefix error_managing/, quit.c)
+SRC 			=	cub3D.c \
+					$(MAP_CHECKING) \
+					$(ERROR_MANAGING) \
 
-OBJS = ${SRCS:.c=.o}
+SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 
-%.o : %.c
-	${CC} ${CFLAGS} -I/usr/include -Iminilibx-linux -O3 -c $< -o $@
+# Objects
+OBJ_PATH	= obj/
+OBJ			= $(SRC:.c=.o)
+OBJS		= $(addprefix $(OBJ_PATH), $(OBJ))
 
-${NAME}: ${OBJS}
-		${CC} ${OBJS} -Lminilibx-linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+all: $(MLX) $(LIBFT) $(NAME)
 
-all : ${NAME}
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+$(MLX):
+	@echo "Making MiniLibX..."
+	@make -sC $(MLX_PATH)
+
+$(LIBFT):
+	@echo "Making libft..."
+	@make -sC $(LIBFT_PATH)
+
+$(NAME): $(MLX) $(LIBFT) $(OBJS)
+	@echo "Compiling cub3d..."
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX) $(LIBFT) $(INC) -lXext -lX11 -lm
+	@echo "cub3d ready."
 
 clean:
-	rm -f ${OBJS}
+	clear
+	@echo "Removing .o object files..."
+	@rm -rf $(OBJ_PATH)
+	@make clean -C $(MLX_PATH)
+	@make clean -C $(LIBFT_PATH)
 
 fclean: clean
-	rm -f ${NAME}
+	@echo "Removing executable..."
+	@rm -f $(NAME)
+	@rm -f $(LIBFT_PATH)$(LIBFT_NAME)
 
 re: fclean all
+
+.PHONY: all re clean fclean
