@@ -16,31 +16,44 @@ int     ft_retrieve_map(t_core *core, int fd, char *line)
 {
     int     i;
 
+    core->data->map = (char **)malloc((TILE_SIZE + 1) * sizeof(char *));
+    if (core->data->map == NULL)
+        return (1);
     i = 0;
-    (core)->data->map = malloc ((30 + 1) * sizeof(char *));
-    (core)->data->width = ft_strlen(line);
+    while (i < TILE_SIZE)
+    {
+        core->data->map[i] = NULL;
+        i++;
+    }
+    i = 0;
+    if (line)
+        core->data->width = (int)ft_strlen(line);
     while (line != NULL)
     {
-        if (i >= 30)
+        if (i >= TILE_SIZE)
             return (1);
-        if ((core)->data->width < (int)ft_strlen(line))
-            (core)->data->width = ft_strlen(line);
-        (core)->data->map[i] = ft_strdup(line);
-        if ((core)->data->map[i] == NULL)
+        if (core->data->width < (int)ft_strlen(line))
+            core->data->width = (int)ft_strlen(line);
+        core->data->map[i] = ft_strdup(line);
+        if (core->data->map[i] == NULL)
+        {
+            ft_free_tab(core->data->map);
             return (1);
+        }
         i++;
         free(line);
         line = ft_get_next_line(fd);
     }
-    (core)->data->height = i;
-    (core)->data->map[i] = "\0";
+    ft_printf("exited while loop\n");
+    core->data->height = i;
+    ft_printf("height: %d\n", (core->data->height));
     i = 0;
-    printf ("height: %d\n", (core->data->height));
-    printf ("width: %d\n", (core->data->width));
+    ft_printf("width: %d\n", (core->data->width));
     while ((core)->data->map[i] != NULL)
     {
-        printf ("%s", (core->data->map[i]));
+        ft_printf("%s", (core->data->map[i]));
         i++;
     }
+    ft_printf("\n");
     return (0);
 }

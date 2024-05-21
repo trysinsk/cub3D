@@ -14,15 +14,27 @@
 
 void    init_data(t_core **core)
 {
-	*core = malloc(1 * sizeof(t_core));
+	*core = (t_core *)malloc(1 * sizeof(t_core));
     if (!core)
         ft_quit("error: allocation failed\n");
-    (*core)->data = malloc(1 *sizeof(t_data));
+    (*core)->data = (t_data *)malloc(1 *sizeof(t_data));
     if (!(*core)->data)
     {
         free(*core);
         ft_quit("error: allocation failed\n");
     }
+    else
+    {
+        (*core)->data->map = NULL;
+        (*core)->data->no = NULL;
+        (*core)->data->so = NULL;
+        (*core)->data->we = NULL;
+        (*core)->data->ea = NULL;
+    }
+    (*core)->data->height = -1;
+    (*core)->data->width = -1;
+    (*core)->data->player_x = -1;
+    (*core)->data->player_y = -1;
     ft_printf("Allocation of memory complete.\n");
 }
 
@@ -44,5 +56,7 @@ int main(int argc, char **argv)
     /*if (ft_check_map_integrity(core->data) != 0)
         ft_quit("map invalide\n");*/
     //launch game
+    if (core)
+        clean_data(core);
     return (0);
 }

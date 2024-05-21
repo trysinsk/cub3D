@@ -64,6 +64,13 @@ typedef struct s_ray
     int flag_wall;
 }   t_ray;
 
+typedef struct s_color
+{
+    int     R;
+    int     G;
+    int     B;
+}   t_color;
+
 typedef struct s_data
 {
     char    **map;
@@ -75,8 +82,8 @@ typedef struct s_data
     char    *so;
     char    *we;
     char    *ea;
-    char    *f;
-    char    *c;
+    t_color f;
+    t_color c;
 }   t_data;
 
 typedef struct s_core
@@ -91,6 +98,8 @@ typedef struct s_core
 
 //     error and quiting
 void    ft_quit(char *str);
+void    clean_data(t_core *core);
+void	ft_free_tab(char **array);
 
 //     map checking
 int		ft_extention_check(char *file);

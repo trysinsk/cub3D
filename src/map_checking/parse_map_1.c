@@ -12,27 +12,24 @@
 
 #include "cub3D.h"
 
-char    *get_color(char *line)
+t_color    get_color(char *line)
 {
-    char    *ret;
+    t_color    ret;
     char    *color;
-    int     i;
+    char    **ctab;
 
-    ret = malloc((ft_strlen(line) + 1) * sizeof(char));
-    if (!ret)
-        return (NULL);
+    ret.R = 0;
+    ret.G = 0;
+    ret.B = 0;
     color = ft_strchr(line, ' ');
     if (color == NULL || color == line)
-        return (NULL);
-    i = 0;
+        return (ret);
     color++;
-    while (*color != '\n' && *color != '\0')
-    {
-        ret[i] = *color;
-        i++;
-        color++;
-    }
-    ret[i] = '\0';
+    ctab = ft_split(color, ',');
+    ret.R = ft_atoi(ctab[0]);
+    ret.G = ft_atoi(ctab[1]);
+    ret.B = ft_atoi(ctab[2]);
+    ft_free_tab(ctab);
     return (ret);
 }
 
@@ -42,8 +39,7 @@ char    *get_path(char *line)
     char    *path;
     int     i;
 
-    ft_printf("in get_path\n");
-    ret = malloc((ft_strlen(line) + 1) * sizeof(char));
+    ret = (char *)malloc((ft_strlen(line) + 1) * sizeof(char));
     if (!ret)
         return (NULL);
     path = ft_strchr(line, '.');
@@ -57,13 +53,11 @@ char    *get_path(char *line)
         path++;
     }
     ret[i] = '\0';
-    ft_printf("returning ret from get_path\n");
     return (ret);
 }
 
 void    fill_texture(t_core *core, char *line)
 {
-    ft_printf("in fill_texture\n");
     if (!ft_strncmp(line, "NO", 2))
         (core)->data->no = get_path(line);
     else if (!ft_strncmp(line, "SO", 2))
@@ -94,36 +88,31 @@ int ft_parse_map(t_core *core, char *file, int index)
     int fd;
     char *line;
 
-    ft_printf("starting parse_map\n");
     fd = open(file, O_RDONLY);
     if (fd < 0)
         return (1);
     line = ft_get_next_line(fd);
-    ft_printf("read line\n");
     if (line == NULL)
         return (1);
     while (line && line[0] != '1' && line [0] != ' ')
     {
-        ft_printf("in while loop\n");
         if (check_texture(line))
         {
-            ft_printf("checking texture\n");
             fill_texture(core, line);
             index++;
-            ft_printf("texture checked\n");
         }
         free(line);
-        ft_printf("freed line\n");
         line = ft_get_next_line(fd);
     }
-    printf ("NO: %s\n", (core)->data->no);
-    printf ("SO: %s\n", (core)->data->so);
-    printf ("WE: %s\n", (core)->data->we);
-    printf ("EA: %s\n", (core)->data->ea);
-    printf ("f: %s\n", (core)->data->f);
-    printf ("c: %s\n", (core)->data->c);
+    ft_printf("NO: %s\n", (core)->data->no);
+    ft_printf("SO: %s\n", (core)->data->so);
+    ft_printf("WE: %s\n", (core)->data->we);
+    ft_printf("EA: %s\n", (core)->data->ea);
+    ft_printf("f: %d %d %d\n", core->data->f.R, core->data->f.G, core->data->f.B);
+    ft_printf("c: %d %d %d\n", core->data->c.R, core->data->c.G, core->data->c.B);
     if (ft_retrieve_map(core, fd, line) != 0)
         return (1);
+    //free (line);
     return (0);
 
 }
