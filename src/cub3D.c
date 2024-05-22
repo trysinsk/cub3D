@@ -6,11 +6,43 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:06:13 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/22 08:33:20 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/22 11:19:58 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	exit_hook(t_core *core)
+{
+	mlx_destroy_window(core->mlx, core->win);
+	mlx_destroy_display(core->mlx);
+	free(core->mlx);
+	return (0);
+}
+
+int	handle_keyrelease(int keysym, t_core *core)
+{
+    /*if (keysym == W)
+	if (keysym == S)
+	if (keysym == A)
+	if (keysym == D)
+    if (keysym == LEFT)
+    if (keysym == RIGHT)*/
+	return (0);
+}
+
+int	handle_keypress(int keysym, t_core *core)
+{
+	if (keysym == XK_Escape)
+		mlx_destroy_window(core->mlx, core->win);
+    /*if (keysym == W)
+	if (keysym == S)
+	if (keysym == A)
+	if (keysym == D)
+    if (keysym == LEFT)
+    if (keysym == RIGHT)*/
+	return (0);
+}
 
 void    init_data(t_core **core)
 {
@@ -56,6 +88,11 @@ int main(int argc, char **argv)
     if (ft_map_validation(core) != 0)
         ft_quit("invalid map\n");
     //launch game
+    //handle keys
+    mlx_hook(core->win, DestroyNotify, StructureNotifyMask, &exit_hook, &core);
+	mlx_hook(core->win, KeyPress, KeyPressMask, &handle_keypress, &core);
+	mlx_hook(core->win, KeyPress, KeyReleaseMask, &handle_keyrelease, &core);
+	mlx_loop(core->mlx);
     if (core)
         clean_data(core);
     return (0);
