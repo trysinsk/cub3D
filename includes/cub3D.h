@@ -101,6 +101,10 @@ void    ft_quit(char *str);
 void    clean_data(t_core *core);
 void	ft_free_tab(char **array);
 
+// window tools
+int     on_destroy(t_core *data);
+int     close_win(int keycode, t_core *core);
+
 //     map checking
 int		ft_extention_check(char *file);
 int     ft_parse_map(t_core *core, char *file, int index);

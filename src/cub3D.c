@@ -56,6 +56,14 @@ int main(int argc, char **argv)
     if (ft_map_validation(core) != 0)
         ft_quit("invalid map\n");
     //launch game
+    core->mlx = mlx_init();
+    if (core->mlx == NULL)
+        return (1);
+    core->win = mlx_new_window(core->mlx, S_W, S_H, "cub3d");
+    if (core->win == NULL)
+        return (free(core->mlx), 1);
+    core->img = mlx_new_image(core->mlx, S_W, S_H);
+    mlx_hook(core->win, 2, 1L << 0, close_win, core);
     if (core)
         clean_data(core);
     return (0);
