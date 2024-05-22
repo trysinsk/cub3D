@@ -15,6 +15,7 @@
 // destroy window and display and free data with closing window with mouse
 int	on_destroy(t_core *data)
 {
+	ft_printf("in on destroy\n");
 	if (!data)
 		exit(0);
 	if (data->img)
@@ -35,7 +36,8 @@ int	on_destroy(t_core *data)
 // close window and free memory with ESC key
 int	close_win(int keycode, t_core *core)
 {
-	if (keycode == ESC)
+	ft_printf("in close win: %d\n", keycode);
+	if (keycode == XK_Escape)
 		on_destroy(core);
 	return (0);
 }

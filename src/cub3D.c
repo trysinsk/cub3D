@@ -22,6 +22,8 @@ int	exit_hook(t_core *core)
 
 int	handle_keyrelease(int keysym, t_core *core)
 {
+    (void) core;
+    ft_printf("%d\n", keysym);
     /*if (keysym == W)
 	if (keysym == S)
 	if (keysym == A)
@@ -33,6 +35,7 @@ int	handle_keyrelease(int keysym, t_core *core)
 
 int	handle_keypress(int keysym, t_core *core)
 {
+    ft_printf("%d\n", keysym);
 	if (keysym == XK_Escape)
 		mlx_destroy_window(core->mlx, core->win);
     /*if (keysym == W)
@@ -89,10 +92,6 @@ int main(int argc, char **argv)
         ft_quit("invalid map\n");
     //launch game
     //handle keys
-    mlx_hook(core->win, DestroyNotify, StructureNotifyMask, &exit_hook, &core);
-	mlx_hook(core->win, KeyPress, KeyPressMask, &handle_keypress, &core);
-	mlx_hook(core->win, KeyPress, KeyReleaseMask, &handle_keyrelease, &core);
-	mlx_loop(core->mlx);
     core->mlx = mlx_init();
     if (core->mlx == NULL)
         return (1);
@@ -100,7 +99,15 @@ int main(int argc, char **argv)
     if (core->win == NULL)
         return (free(core->mlx), 1);
     core->img = mlx_new_image(core->mlx, S_W, S_H);
+
     mlx_hook(core->win, 2, 1L << 0, close_win, core);
+	mlx_hook(core->win, DestroyNotify, StructureNotifyMask, &on_destroy, core);
+
+    //mlx_hook(core->win, DestroyNotify, StructureNotifyMask, &exit_hook, &core);
+	//mlx_hook(core->win, KeyPress, KeyPressMask, &handle_keypress, &core);
+	//mlx_hook(core->win, KeyPress, KeyReleaseMask, &handle_keyrelease, &core);
+	mlx_loop(core->mlx);
+
     if (core)
         clean_data(core);
     return (0);
