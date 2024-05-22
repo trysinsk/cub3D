@@ -6,12 +6,11 @@
 /*   By: mevonuk <mevonuk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:17:16 by mevonuk           #+#    #+#             */
-/*   Updated: 2024/05/22 11:26:07 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/05/22 17:00:11 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 
 // put pixel with color depending on fractol value
 void	img_pix_put(t_core *img, int x, int y, int color)
@@ -44,11 +43,13 @@ void	fill_image(t_core vars)
 		j = -1;
 		while (j++ < S_H)
 		{
-			color = create_trgb(1, vars.data->f.R, vars.data->f.G, vars.data->f.B);
+			color = create_trgb(1, vars.data->f.r,
+					vars.data->f.g, vars.data->f.b);
 			img_pix_put(&vars, i, j, color);
 		}
 	}
 }
+
 // render the image into the window
 int	render(t_core *vars)
 {
@@ -56,14 +57,15 @@ int	render(t_core *vars)
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
 	return (0);
 }
+
 // destroy window and display and free data with closing window with mouse
 int	on_destroy(t_core *data)
 {
 	ft_printf("in on destroy\n");
 	if (!data)
 		exit(0);
-	if (data->img)
-		mlx_destroy_image(data->mlx, data->img);
+	if (data->img2.ptr)
+		mlx_destroy_image(data->mlx, data->img2.ptr);
 	if (data->win && data->mlx)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)

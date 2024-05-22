@@ -6,7 +6,7 @@
 /*   By: mevonuk <mevonuk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:25:03 by mevonuk           #+#    #+#             */
-/*   Updated: 2024/05/21 13:32:03 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/05/22 17:01:19 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	clean_data(t_core *core)
 				ft_free_tab(core->data->map);
 			free (core->data);
 		}
-		//if (core->addr)
-		//	free (core->addr);
 		free (core);
 	}
 	ft_printf("core data freed\n");
@@ -55,9 +53,7 @@ void	ft_free_tab(char **array)
 	i = -1;
 	if (array == NULL)
 		return ;
-	//print_table(array);
 	while (array[++i] != NULL)
 		free(array[i]);
 	free(array);
 }
-

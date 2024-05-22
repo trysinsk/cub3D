@@ -6,14 +6,14 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:37:04 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/15 10:37:32 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:02:26 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void    ft_quit(char *str)
+void	ft_quit(char *str)
 {
-    printf("%s", str);
-    exit (1);
+	printf("%s", str);
+	exit (1);
 }
