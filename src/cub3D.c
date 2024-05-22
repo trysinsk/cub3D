@@ -76,7 +76,13 @@ void    init_data(t_core **core)
 int main(int argc, char **argv)
 {
     t_core *core;
-    
+    t_img   img;
+    char    *relative_path = "tree.xpm";
+    //int     img_width;
+    //int     img_height;
+    int		count_h;
+	int		count_w;
+
     if (argc != 2)
         ft_quit("wrong number of argument\n");
     //first checking of the map extention
@@ -98,17 +104,46 @@ int main(int argc, char **argv)
     core->win = mlx_new_window(core->mlx, S_W, S_H, "cub3d");
     if (core->win == NULL)
         return (free(core->mlx), 1);
-    core->img = mlx_new_image(core->mlx, S_W, S_H);
+
+    img.ptr = mlx_xpm_file_to_image(core->mlx, relative_path, &img.width, &img.height);
+    img.data = (int *)mlx_get_data_addr(img.ptr, &img.bpp, &img.size_l, &img.endian);
+
+	count_h = -1;
+	while (++count_h < img.height)
+	{
+		count_w = -1;
+		while (++count_w < img.width / 2)
+		{
+			if (count_w % 2)
+				img.data[count_h * img.width + count_w] = 0xFFFFFF;
+			else
+				img.data[count_h * img.width + count_w] = 0xFF0000;
+		}
+	}
+	mlx_put_image_to_window(core->mlx, core->win, img.ptr, 50, 50);
+
+    //core->img = mlx_new_image(core->mlx, S_W, S_H);
+    //core->addr = mlx_get_data_addr(core->img, &core->bpp,
+	//		&core->line_len, &core->endian);
+
+    //core->img = mlx_xpm_file_to_image(core->mlx, relative_path, &img_width, &img_height);
+    //if (core->img == NULL)
+    //    ft_printf("error\n");
+
+    //mlx_put_image_to_window(core->mlx, core->win, core->img, 50, 50);
 
     mlx_hook(core->win, 2, 1L << 0, close_win, core);
 	mlx_hook(core->win, DestroyNotify, StructureNotifyMask, &on_destroy, core);
 
+	//mlx_loop_hook(core->mlx, render, core);
+
+
     //mlx_hook(core->win, DestroyNotify, StructureNotifyMask, &exit_hook, &core);
 	//mlx_hook(core->win, KeyPress, KeyPressMask, &handle_keypress, &core);
 	//mlx_hook(core->win, KeyPress, KeyReleaseMask, &handle_keyrelease, &core);
-	mlx_loop(core->mlx);
+    mlx_loop(core->mlx);
 
-    if (core)
-        clean_data(core);
-    return (0);
+    //if (core)
+    //    clean_data(core);
+    //return (0);
 }

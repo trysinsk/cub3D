@@ -30,8 +30,8 @@
 # include "libft.h"
 
 
-# define S_W 1900 // screen width
-# define S_H 1000 // screen height
+# define S_W 512 // screen width
+# define S_H 512 // screen height
 # define TILE_SIZE 30 // tile size
 # define FOV 60 // field of view
 # define ROTATION_SPEED 0.045 // rotation speed
@@ -45,6 +45,18 @@
 # define DOWN   65364
 # define LEFT   65361
 # define RIGHT  65363
+
+typedef struct s_img
+{
+    void    *ptr;
+    int     *data;
+    int     width;
+    int     height;
+    int     size_l;
+    int     bpp;
+    int     endian;
+} t_img;
+
 
 typedef struct s_player
 {
@@ -91,6 +103,11 @@ typedef struct s_core
     void        *mlx;
     void        *win;
     void        *img;
+    void        *img2;
+    char        *addr;
+    int         bpp;
+    int         endian;
+    int         line_len;
     t_player    *player;
     t_ray       *ray;
     t_data      *data;
@@ -104,6 +121,11 @@ void	ft_free_tab(char **array);
 // window tools
 int     on_destroy(t_core *data);
 int     close_win(int keycode, t_core *core);
+void	img_pix_put(t_core *img, int x, int y, int color);
+void	fill_image(t_core vars);
+void	img_pix_put(t_core *img, int x, int y, int color);
+int	    render(t_core *vars);
+int     create_trgb(int t, int r, int g, int b);
 
 //     map checking
 int		ft_extention_check(char *file);

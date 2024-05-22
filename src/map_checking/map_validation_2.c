@@ -55,8 +55,8 @@ int ft_check_outer_walls(t_core *core, char **map, int x, int y)
     while (y < core->data->height)
     {
         if ((map[y][0] != '1' && map[y][0] != ' ') 
-            || (map[y][(int)ft_strlen(map[y] - 2)] != '1'
-            && map[y][(int)ft_strlen(map[y] - 2)] != ' '))
+            || (map[y][(int)ft_strlen(map[y]) - 2] != '1'
+            && map[y][(int)ft_strlen(map[y]) - 2] != ' '))
             return (1);
         y++;
     }

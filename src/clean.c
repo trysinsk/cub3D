@@ -30,6 +30,8 @@ void	clean_data(t_core *core)
 				ft_free_tab(core->data->map);
 			free (core->data);
 		}
+		//if (core->addr)
+		//	free (core->addr);
 		free (core);
 	}
 	ft_printf("core data freed\n");

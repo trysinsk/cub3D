@@ -37,7 +37,7 @@ MAP_CHECKING	=	$(addprefix map_checking/, extention_check.c \
 					parse_map_1.c parse_map_2.c map_validation_1.c \
 					map_validation_2.c)
 ERROR_MANAGING	=	$(addprefix error_managing/, quit.c)
-WINDOW_UTILS	=	$(addprefix window_utils/, utils.c)
+WINDOW_UTILS	=	$(addprefix window_utils/, utils.c color.c )
 SRC 			=	cub3D.c clean.c \
 					$(MAP_CHECKING) \
 					$(ERROR_MANAGING) \
