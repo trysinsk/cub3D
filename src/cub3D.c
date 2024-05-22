@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:06:13 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/15 12:42:01 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/22 08:33:20 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int main(int argc, char **argv)
     if (ft_parse_map(core, argv[1], 0) != 0)
         ft_quit("unable to retrieve map info\n");
     //cheking of map conformity
-    /*if (ft_check_map_integrity(core->data) != 0)
-        ft_quit("map invalide\n");*/
+    if (ft_map_validation(core) != 0)
+        ft_quit("invalid map\n");
     //launch game
     if (core)
         clean_data(core);

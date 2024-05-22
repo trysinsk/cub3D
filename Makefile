@@ -6,7 +6,7 @@
 #    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 09:55:06 by mevonuk           #+#    #+#              #
-#    Updated: 2024/05/17 11:23:40 by trysinsk         ###   ########.fr        #
+#    Updated: 2024/05/22 09:12:43 by trysinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ INC			=	-I ./includes/\
 # Sources
 SRC_PATH	=	src/
 MAP_CHECKING	=	$(addprefix map_checking/, extention_check.c \
-					parse_map_1.c parse_map_2.c)
+					parse_map_1.c parse_map_2.c map_validation_1.c \
+					map_validation_2.c)
 ERROR_MANAGING	=	$(addprefix error_managing/, quit.c)
 SRC 			=	cub3D.c clean.c \
 					$(MAP_CHECKING) \
