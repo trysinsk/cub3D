@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 08:32:14 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/23 11:58:27 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:52:05 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,16 @@ int	ft_is_player_pos(char c, t_core *core, int y, int x)
 	else
 		return (1);
     if (c == 'N')
-        core->player->angle = 90;
+        core->player->angle = (3 * PI) / 2;
     else if (c == 'S')
-        core->player->angle = 0;
+        core->player->angle = PI / 2;
     else if (c == 'E')
-        core->player->angle = 180;
+        core->player->angle = 0;
     else if (c == 'W')
 	{
-        core->player->angle = 270;
+        core->player->angle = PI;
 	}
-	core->player->an_rad = core->player->angle * (PI / 180);
-	printf ("an_rad: %f\n", core->player->an_rad);
+	core->player->an_rad = (FOV * PI) / 180;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:06:13 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/23 11:45:43 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:40:27 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,20 +138,6 @@ void	insert_column(t_core *core, int x, int y_start, int	length)
 	while (++count_h < y_start + length)
 	{
 		img_pix_put(core, x, count_h, color);
-	}
-}
-
-void	raycast_loop(t_core *core)
-{
-	int x;
-	(void)core;
-
-	x = 0;
-	while (x < 20)
-	{
-		calculate_ray_angle(core);
-		
-		x++;
 	}
 }
 

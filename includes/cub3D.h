@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/23 11:54:52 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:26:50 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	int		player_x;
-	int		player_y;
+	float		player_x;
+	float		player_y;
 	double	angle;
 	double	an_rad;
 	double	fov_rd;
@@ -136,6 +136,7 @@ int		ft_check_outer_walls(t_core *core, char **map, int x, int y);
 int		ft_check_spaces(t_core *core, char **map, int x, int y);
 
 //		raycating
-void	calculate_ray_angle(t_core *core);
+
+void	raycast_loop(t_core *core);
 
 #endif
