@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 08:32:14 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/22 17:08:00 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/05/23 11:58:27 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,23 @@ int	ft_is_player_pos(char c, t_core *core, int y, int x)
 	{
 		core->data->player_x = x;
 		core->data->player_y = y;
+		core->player->player_x = core->data->player_x * TILE_SIZE + TILE_SIZE / 2;
+		core->player->player_y = core->data->player_y * TILE_SIZE + TILE_SIZE / 2;
 	}
 	else
 		return (1);
-    /*if (c == 'N')
-        core->player->angle = idk_for_now;
+    if (c == 'N')
+        core->player->angle = 90;
     else if (c == 'S')
-        core->player->angle = idk_for_now;
+        core->player->angle = 0;
     else if (c == 'E')
-        core->player->angle = idk_for_now;
+        core->player->angle = 180;
     else if (c == 'W')
-        core->player->angle = idk_for_now;*/
+	{
+        core->player->angle = 270;
+	}
+	core->player->fov_rd = core->player->angle * (PI / 180);
+	printf ("fov_rad: %f\n", core->player->fov_rd);
 	return (0);
 }
 

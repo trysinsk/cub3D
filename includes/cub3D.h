@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/22 16:58:36 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/05/23 11:54:52 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define FOV 60					// field of view
 # define ROTATION_SPEED 0.045	// rotation speed
 # define PLAYER_SPEED 4			// player speed
+# define PI 3.14159265
 
 # define W		122
 # define A		113
@@ -132,5 +133,8 @@ int		ft_retrieve_map(t_core *core, int fd, char *line);
 int		ft_map_validation(t_core *core);
 int		ft_check_outer_walls(t_core *core, char **map, int x, int y);
 int		ft_check_spaces(t_core *core, char **map, int x, int y);
+
+//		raycating
+void	calculate_ray_angle(t_core *core);
 
 #endif

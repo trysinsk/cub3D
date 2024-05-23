@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:06:13 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/22 17:54:47 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/05/23 11:45:43 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,21 @@ void	init_data(t_core **core)
 		(*core)->data->so = NULL;
 		(*core)->data->we = NULL;
 		(*core)->data->ea = NULL;
+	}
+	(*core)->player = (t_player *)malloc(1 *sizeof(t_player));
+	if (!(*core)->player)
+	{
+		free((*core)->data);
+		free(*core);
+		ft_quit("error: allocation failed\n");
+	}
+	(*core)->ray = (t_ray *)malloc(1 *sizeof(t_ray));
+	if (!(*core)->ray)
+	{
+		free((*core)->data);
+		free((*core)->player);
+		free(*core);
+		ft_quit("error: allocation failed\n");
 	}
 	(*core)->data->height = -1;
 	(*core)->data->width = -1;
@@ -126,11 +141,30 @@ void	insert_column(t_core *core, int x, int y_start, int	length)
 	}
 }
 
+void	raycast_loop(t_core *core)
+{
+	int x;
+	(void)core;
+
+	x = 0;
+	while (x < 20)
+	{
+		calculate_ray_angle(core);
+		
+		x++;
+	}
+}
+
 int	make_image(t_core *core)
 {
+	core->img = mlx_new_image(core->mlx, S_W, S_H);
+	core->addr = mlx_get_data_addr(core->img, &core->bpp,
+			&core->line_len, &core->endian);
 	cieling_floor(core);
-	insert_column(core, 60, 60, 20);
+	//insert_column(core, 60, 60, 20);
+	raycast_loop(core);
 	mlx_put_image_to_window(core->mlx, core->win, core->img, 0, 0);
+	mlx_destroy_image(core->mlx, core->img);
 	return (0);
 }
 
@@ -159,11 +193,8 @@ int	main(int argc, char **argv)
 	core->win = mlx_new_window(core->mlx, S_W, S_H, "cub3d");
 	if (core->win == NULL)
 		return (free(core->mlx), 1);
-	core->img = mlx_new_image(core->mlx, S_W, S_H);
-	core->addr = mlx_get_data_addr(core->img, &core->bpp,
-			&core->line_len, &core->endian);
+	mlx_loop_hook(core->mlx, make_image, core);
 	mlx_hook(core->win, 2, 1L << 0, close_win, core);
 	mlx_hook(core->win, DestroyNotify, StructureNotifyMask, &on_destroy, core);
-	mlx_loop_hook(core->mlx, make_image, core);
 	mlx_loop(core->mlx);
 }
