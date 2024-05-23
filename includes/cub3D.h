@@ -62,7 +62,8 @@ typedef struct s_player
 	int		player_x;
 	int		player_y;
 	double	angle;
-	float	fov_rd;
+	double	an_rad;
+	double	fov_rd;
 	int		rotation;
 	int		left_right;
 	int		up_down;

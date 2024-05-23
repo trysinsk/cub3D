@@ -42,8 +42,8 @@ int	ft_is_player_pos(char c, t_core *core, int y, int x)
 	{
         core->player->angle = 270;
 	}
-	core->player->fov_rd = core->player->angle * (PI / 180);
-	printf ("fov_rad: %f\n", core->player->fov_rd);
+	core->player->an_rad = core->player->angle * (PI / 180);
+	printf ("an_rad: %f\n", core->player->an_rad);
 	return (0);
 }
 
