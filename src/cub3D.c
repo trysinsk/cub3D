@@ -72,24 +72,12 @@ void	init_data(t_core **core)
 	(*core)->data->player_y = -1;
 }
 
-void	make_image(t_core *core)
+void	cieling_floor(t_core *core)
 {
 	int		count_h;
 	int		count_w;
 	int		color;
 
-	char	*relative_path = "tree.xpm";
-
-
-	core->img2.ptr = mlx_xpm_file_to_image(core->mlx, relative_path,
-		&(core->img2).width, &core->img2.height);
-	core->img2.data = (int *)mlx_get_data_addr(core->img2.ptr,
-		&core->img2.bpp, &core->img2.size_l, &core->img2.endian);
-
-	core->img = mlx_new_image(core->mlx, S_W, S_H);
-	core->addr = mlx_get_data_addr(core->img, &core->bpp,
-			&core->line_len, &core->endian);
-	
 	count_h = -1;
 	while (++count_h < S_H)
 	{
@@ -105,19 +93,45 @@ void	make_image(t_core *core)
 			img_pix_put(core, count_w, count_h, color);
 		}
 	}
+}
 
-	count_h = -1;
-	while (++count_h <  core->img2.height)
+void	insert_column(t_core *core, int x, int y_start, int	length)
+{
+	int		count_h;
+	//int		count_w;
+	int		color;
+	char	*relative_path = "tree.xpm";
+
+	core->img2.ptr = mlx_xpm_file_to_image(core->mlx, relative_path,
+		&(core->img2).width, &core->img2.height);
+	core->img2.data = (int *)mlx_get_data_addr(core->img2.ptr,
+		&core->img2.bpp, &core->img2.size_l, &core->img2.endian);
+
+	// count_h = -1;
+	// while (++count_h < core->img2.height)
+	// {
+	// 	count_w = -1;
+	// 	while (++count_w < core->img2.width)
+	// 	{
+	// 		color = core->img2.data[count_h * core->img2.width + count_w];
+	// 		img_pix_put(core, x + count_w, count_h, color);
+	// 	}
+	// }
+
+	color = core->img2.data[2];
+	count_h = y_start - 1;
+	while (++count_h < y_start + length)
 	{
-		count_w = -1;
-		while (++count_w < core->img2.width)
-		{
-			color = core->img2.data[count_h * core->img2.width + count_w];
-			img_pix_put(core, 40 + count_w, count_h, color);
-		}
+		img_pix_put(core, x, count_h, color);
 	}
+}
 
+int	make_image(t_core *core)
+{
+	cieling_floor(core);
+	insert_column(core, 60, 60, 20);
 	mlx_put_image_to_window(core->mlx, core->win, core->img, 0, 0);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -145,8 +159,11 @@ int	main(int argc, char **argv)
 	core->win = mlx_new_window(core->mlx, S_W, S_H, "cub3d");
 	if (core->win == NULL)
 		return (free(core->mlx), 1);
-	make_image(core);
+	core->img = mlx_new_image(core->mlx, S_W, S_H);
+	core->addr = mlx_get_data_addr(core->img, &core->bpp,
+			&core->line_len, &core->endian);
 	mlx_hook(core->win, 2, 1L << 0, close_win, core);
 	mlx_hook(core->win, DestroyNotify, StructureNotifyMask, &on_destroy, core);
+	mlx_loop_hook(core->mlx, make_image, core);
 	mlx_loop(core->mlx);
 }
