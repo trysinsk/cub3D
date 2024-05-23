@@ -100,6 +100,7 @@ typedef struct s_core
 {
 	void		*mlx;
 	void		*win;
+	void		*img;
 	t_img		img2;
 	char		*addr;
 	int			bpp;
