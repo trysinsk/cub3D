@@ -33,7 +33,7 @@
 # define S_H 200				// screen height
 # define MAX_TILE 50
 # define TILE_SIZE 10			// tile size
-# define FOV 80					// field of view
+# define FOV 60					// field of view
 # define ROTATION_SPEED 0.045	// rotation speed
 # define PLAYER_SPEED 4			// player speed
 # define PI 3.14159265
@@ -60,8 +60,8 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	float		player_x;
-	float		player_y;
+	double		player_x;
+	double		player_y;
 	double	angle;
 	double	an_rad;
 	double	fov_rd;
