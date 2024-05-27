@@ -109,7 +109,9 @@ float horizontal_inter(t_core *core, double angle)
     else
         ay = floor((core->player->player_y / TILE_SIZE)) * TILE_SIZE + TILE_SIZE;
 
-    ax = core->player->player_x + (core->player->player_y - ay) / tan(core->ray->ray_angle);
+    ax = core->player->player_x + (core->player->player_y - ay) / tan(angle);
+    if (ax < 0)
+        return (__DBL_MAX__);
 
     if (in_wall(ax, ay, core) == 1)
     {
@@ -118,11 +120,11 @@ float horizontal_inter(t_core *core, double angle)
         dist = sqrt(delta_x * delta_x + delta_y * delta_y);
         return (dist);
     }
-    delta_x = TILE_SIZE / tan(core->ray->ray_angle);
-    if (core->ray->ray_angle > 0 && core->ray->ray_angle < PI)
+    delta_x = TILE_SIZE / tan(angle);
+    if (angle > 0 && angle < PI)
         delta_y = -TILE_SIZE;
     else
-        delta_y = -TILE_SIZE;
+        delta_y = TILE_SIZE;
 
     while (in_wall(ax, ay, core) != 1)
     {
@@ -144,12 +146,14 @@ float vertical_inter(t_core *core, double angle)
     double  delta_x;
     double  delta_y;
 
-    if (angle > PI && angle < 3 * PI / 2)
+    if (angle > PI / 2 && angle < 3 * PI / 2)
         ax = floor((core->player->player_x / TILE_SIZE)) * TILE_SIZE - 1;
     else
         ax = floor((core->player->player_x / TILE_SIZE)) * TILE_SIZE + TILE_SIZE;
 
-    ay = core->player->player_y + (core->player->player_x - ax) / tan(core->ray->ray_angle);
+    ay = core->player->player_y + (core->player->player_x - ax) * tan(angle);
+    if (ay < 0)
+        return (__DBL_MAX__);
 
     if (in_wall(ax, ay, core) == 1)
     {
@@ -158,11 +162,11 @@ float vertical_inter(t_core *core, double angle)
         dist = sqrt(delta_x * delta_x + delta_y * delta_y);
         return (dist);
     }
-    delta_y = TILE_SIZE / tan(core->ray->ray_angle);
-    if (core->ray->ray_angle > PI && core->ray->ray_angle < 3 * PI / 2)
+    delta_y = TILE_SIZE / tan(angle);
+    if (angle > PI / 2 && angle < 3 * PI / 2)
         delta_x = -TILE_SIZE;
     else
-        delta_x = -TILE_SIZE;
+        delta_x = TILE_SIZE;
 
     while (in_wall(ax, ay, core) != 1)
     {
@@ -224,10 +228,13 @@ void	raycast_loop(t_core *core)
     i = 0;
     while (i < S_W)
     {
-        
-        dist_h = horizontal_inter(core, core->ray->ray_angle);
+        dist_h = __DBL_MAX__;
+        dist_v = __DBL_MAX__;
+        if (core->ray->ray_angle != 0 || core->ray->ray_angle != PI)
+            dist_h = horizontal_inter(core, core->ray->ray_angle);
         printf("for %d, ver_distance is: %f\n", i, dist_h);
-        dist_v = vertical_inter(core, core->ray->ray_angle);
+        if (core->ray->ray_angle != (PI / 2) || core->ray->ray_angle != (3 * PI / 2))
+            dist_v = vertical_inter(core, core->ray->ray_angle);
         printf("for %f, hor_distance is: %f\n", core->ray->ray_angle / PI * 180, dist_v);
         dist = dist_h;
         if (dist_v < dist)
@@ -236,7 +243,7 @@ void	raycast_loop(t_core *core)
         printf("corrected distance is: %f\n", dist);
         height = height_of_wall(core, dist);
         printf("height of wall is: %d of %d\n", height, S_H);
-        insert_column(core, i, height);
+        insert_column(core, S_W - i, height);
         i++;
         core->ray->ray_angle += delta_r;
     }

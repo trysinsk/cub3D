@@ -29,11 +29,11 @@ int	allocate_map(t_core *core)
 {
 	int	i;
 
-	core->data->map = (char **)malloc((TILE_SIZE + 1) * sizeof(char *));
+	core->data->map = (char **)malloc((MAX_TILE + 1) * sizeof(char *));
 	if (core->data->map == NULL)
 		return (1);
 	i = 0;
-	while (i < TILE_SIZE)
+	while (i < MAX_TILE)
 	{
 		core->data->map[i] = NULL;
 		i++;
@@ -51,7 +51,7 @@ int	ft_retrieve_map(t_core *core, int fd, char *line)
 	core->data->width = (int)ft_strlen(line);
 	while (line != NULL)
 	{
-		if (i >= TILE_SIZE)
+		if (i >= MAX_TILE)
 			return (1);
 		if (core->data->width < (int)ft_strlen(line))
 			core->data->width = (int)ft_strlen(line);
