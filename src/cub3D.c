@@ -110,37 +110,6 @@ void	cieling_floor(t_core *core)
 	}
 }
 
-void	insert_column(t_core *core, int x, int y_start, int	length)
-{
-	int		count_h;
-	//int		count_w;
-	int		color;
-	char	*relative_path = "tree.xpm";
-
-	core->img2.ptr = mlx_xpm_file_to_image(core->mlx, relative_path,
-		&(core->img2).width, &core->img2.height);
-	core->img2.data = (int *)mlx_get_data_addr(core->img2.ptr,
-		&core->img2.bpp, &core->img2.size_l, &core->img2.endian);
-
-	// count_h = -1;
-	// while (++count_h < core->img2.height)
-	// {
-	// 	count_w = -1;
-	// 	while (++count_w < core->img2.width)
-	// 	{
-	// 		color = core->img2.data[count_h * core->img2.width + count_w];
-	// 		img_pix_put(core, x + count_w, count_h, color);
-	// 	}
-	// }
-
-	color = core->img2.data[2];
-	count_h = y_start - 1;
-	while (++count_h < y_start + length)
-	{
-		img_pix_put(core, x, count_h, color);
-	}
-}
-
 int	make_image(t_core *core)
 {
 	core->img = mlx_new_image(core->mlx, S_W, S_H);

@@ -33,9 +33,9 @@ int	ft_is_player_pos(char c, t_core *core, int y, int x)
 	else
 		return (1);
     if (c == 'N')
-        core->player->angle = (3 * PI) / 2;
-    else if (c == 'S')
         core->player->angle = PI / 2;
+    else if (c == 'S')
+        core->player->angle = (3 * PI) / 2;
     else if (c == 'E')
         core->player->angle = 0;
     else if (c == 'W')
