@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:17:04 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/23 14:40:12 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/28 12:39:33 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ double horizontal_inter(t_core *core, double angle)
     ax = core->player->player_x + (core->player->player_y - ay) / tan(angle);
     delta_x = x_dir * fabs(TILE_SIZE / tan(angle));
     delta_y = y_dir * TILE_SIZE;
-    //printf("h tan(angle): %f delta x: %f, y: %f\n", tan(angle), delta_x, delta_y);
+    printf("in horizontal:\nax: %f ay: %f\ndelta_x: %f delta_y: %f\n", ax, ay, delta_x, delta_y);
     while (in_bounds(ax, ay, core) == 0 && in_wall(ax, ay, core) != 1)
     {
         ax = ax + delta_x;
@@ -95,7 +95,7 @@ double vertical_inter(t_core *core, double angle)
     ay = core->player->player_y + (core->player->player_x - ax) * tan(angle);
     delta_y = y_dir * fabs(TILE_SIZE * tan(angle));
     delta_x = x_dir * TILE_SIZE;
-    printf("v angle %f, delta x: %f, y: %f\n", angle, delta_x, delta_y);
+    printf("in vertical:\nax: %f ay: %f\ndelta_x: %f delta_y: %f\n", ax, ay, delta_x, delta_y);
     while (in_bounds(ax, ay, core) == 0 && in_wall(ax, ay, core) != 1)
     {
         ax = ax + delta_x;
@@ -157,14 +157,17 @@ void	raycast_loop(t_core *core)
     {
         dist = S_H * TILE_SIZE;
         dist_v = dist;
-        printf("angle: %f\n", angle / PI * 180);
+        printf("-------i:%d angle: %f--------\n", i, angle / PI * 180);
         //if (!(angle / PI * 180 > 172 && angle / PI * 180 < 188))
         dist = horizontal_inter(core, angle);
+        printf ("horizontal distance: %f\n", dist);
         //if (!(angle / PI * 180 > 88 && angle / PI * 180 < 92) && !(angle / PI * 180 > 268 && angle / PI * 180 < 272))
         dist_v = vertical_inter(core, angle);
+        printf ("vertical distance: %f\n", dist_v);
         if (dist_v < dist)
             dist = dist_v;
         dist = dist * cos(angle - core->player->angle);
+        printf ("final distance: %f\n\n", dist);
         height = height_of_wall(dist);
         insert_column(core, S_W - i, height);
         i++;
