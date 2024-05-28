@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 08:32:14 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/23 12:52:05 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:28:17 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,23 @@ int	ft_is_player_pos(char c, t_core *core, int y, int x)
 	{
 		core->data->player_x = x;
 		core->data->player_y = y;
-		core->player->player_x = core->data->player_x * TILE_SIZE + TILE_SIZE / 2;
-		core->player->player_y = core->data->player_y * TILE_SIZE + TILE_SIZE / 2;
+		core->player->player_x = core->data->player_x
+			* TILE_SIZE + TILE_SIZE / 2;
+		core->player->player_y = core->data->player_y
+			* TILE_SIZE + TILE_SIZE / 2;
 	}
 	else
 		return (1);
-    if (c == 'N')
-        core->player->angle = PI / 2;
-    else if (c == 'S')
-        core->player->angle = (3 * PI) / 2;
-    else if (c == 'E')
-        core->player->angle = 0;
-    else if (c == 'W')
-	{
-        core->player->angle = PI;
-	}
+	if (c == 'N')
+		core->player->angle = PI / 2;
+	else if (c == 'S')
+		core->player->angle = (3 * PI) / 2;
+	else if (c == 'E')
+		core->player->angle = 0;
+	else if (c == 'W')
+		core->player->angle = PI;
+	else
+		return (1);
 	core->player->an_rad = (FOV * PI) / 180;
 	return (0);
 }
@@ -51,7 +53,7 @@ int	ft_check_num_var(t_core *core)
 	int	x;
 	int	y;
 	int	player;
-    
+
 	player = 0;
 	y = 0;
 	while (core->data->map[y])

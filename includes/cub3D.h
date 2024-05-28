@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/23 14:26:50 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:32:09 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 
 # define S_W 620				// screen width
 # define S_H 400				// screen height
-# define MAX_TILE 50
-# define TILE_SIZE 10			// tile size
+# define MAX_TILE 100			// maximum size of map
+# define TILE_SIZE 64			// tile size
 # define FOV 60					// field of view
 # define ROTATION_SPEED 0.045	// rotation speed
 # define PLAYER_SPEED 4			// player speed
@@ -60,8 +60,8 @@ typedef struct s_img
 
 typedef struct s_player
 {
-	double		player_x;
-	double		player_y;
+	double	player_x;
+	double	player_y;
 	double	angle;
 	double	an_rad;
 	double	fov_rd;
@@ -87,7 +87,7 @@ typedef struct s_color
 typedef struct s_data
 {
 	char	**map;
-	int		**mapi;
+	int		mapi[MAX_TILE][MAX_TILE];
 	int		player_x;
 	int		player_y;
 	int		height;
@@ -105,7 +105,10 @@ typedef struct s_core
 	void		*mlx;
 	void		*win;
 	void		*img;
-	t_img		img2;
+	t_img		img_n;
+	t_img		img_s;
+	t_img		img_e;
+	t_img		img_w;
 	char		*addr;
 	int			bpp;
 	int			endian;

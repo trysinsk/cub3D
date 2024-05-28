@@ -6,46 +6,17 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 09:17:41 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/22 17:35:09 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/05/28 16:20:02 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-int	allocate_mapi(t_core *core)
-{
-	int	i;
-	int	j;
-
-	core->data->mapi = malloc((core->data->width - 1) * sizeof(int *));
-	if (core->data->mapi == NULL)
-		return (-1);
-	i = 0;
-	while (i < core->data->width - 1)
-	{
-		core->data->mapi[i] = malloc(core->data->height * sizeof(int));
-		if (core->data->mapi[i] == NULL)
-		{
-			j = 0;
-			while (j < i)
-			{
-				free (core->data->mapi[j]);
-				j++;
-			}
-			return (-1);
-		}
-		i++;
-	}
-	return (0);
-}
 
 int	convert_map(t_core *core)
 {
 	int	i;
 	int	j;
 
-	if (allocate_mapi(core) == -1)
-		return (-1);
 	i = 0;
 	while (i < core->data->width - 1)
 	{

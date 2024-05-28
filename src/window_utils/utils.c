@@ -64,8 +64,6 @@ int	on_destroy(t_core *data)
 	ft_printf("in on destroy\n");
 	if (!data)
 		exit(0);
-	if (data->img2.ptr)
-		mlx_destroy_image(data->mlx, data->img2.ptr);
 	if (data->win && data->mlx)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)

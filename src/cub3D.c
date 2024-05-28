@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:06:13 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/23 12:40:27 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:23:25 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	exit_hook(t_core *core)
 
 int	handle_keyrelease(int keysym, t_core *core)
 {
-    (void) core;
-    ft_printf("%d\n", keysym);
-    /*if (keysym == W)
+	(void) core;
+	ft_printf("%d\n", keysym);
+	/*if (keysym == W)
 	if (keysym == S)
 	if (keysym == A)
 	if (keysym == D)
-    if (keysym == LEFT)
-    if (keysym == RIGHT)*/
+	if (keysym == LEFT)
+	if (keysym == RIGHT)*/
 	return (0);
 }
 
@@ -38,12 +38,12 @@ int	handle_keypress(int keysym, t_core *core)
 	ft_printf("%d\n", keysym);
 	if (keysym == XK_Escape)
 		mlx_destroy_window(core->mlx, core->win);
-    /*if (keysym == W)
+	/*if (keysym == W)
 	if (keysym == S)
 	if (keysym == A)
 	if (keysym == D)
-    if (keysym == LEFT)
-    if (keysym == RIGHT)*/
+	if (keysym == LEFT)
+	if (keysym == RIGHT)*/
 	return (0);
 }
 
@@ -52,7 +52,7 @@ void	init_data(t_core **core)
 	*core = (t_core *)malloc(1 * sizeof(t_core));
 	if (!core)
 		ft_quit("error: allocation failed\n");
-	(*core)->data = (t_data *)malloc(1 *sizeof(t_data));
+	(*core)->data = (t_data *)malloc(sizeof(t_data));
 	if (!(*core)->data)
 	{
 		free(*core);
@@ -66,14 +66,14 @@ void	init_data(t_core **core)
 		(*core)->data->we = NULL;
 		(*core)->data->ea = NULL;
 	}
-	(*core)->player = (t_player *)malloc(1 *sizeof(t_player));
+	(*core)->player = (t_player *)malloc(sizeof(t_player));
 	if (!(*core)->player)
 	{
 		free((*core)->data);
 		free(*core);
 		ft_quit("error: allocation failed\n");
 	}
-	(*core)->ray = (t_ray *)malloc(1 *sizeof(t_ray));
+	(*core)->ray = (t_ray *)malloc(sizeof(t_ray));
 	if (!(*core)->ray)
 	{
 		free((*core)->data);
@@ -101,13 +101,33 @@ void	cieling_floor(t_core *core)
 		{
 			if (count_h < S_H / 2)
 				color = create_trgb(1, core->data->f.r,
-					core->data->f.g, core->data->f.b);
+						core->data->f.g, core->data->f.b);
 			else
 				color = create_trgb(1, core->data->c.r,
-					core->data->c.g, core->data->c.b);
+						core->data->c.g, core->data->c.b);
 			img_pix_put(core, count_w, count_h, color);
 		}
 	}
+}
+
+void	init_textures(t_core *core)
+{
+	core->img_n.ptr = mlx_xpm_file_to_image(core->mlx, core->data->no,
+			&(core->img_n).width, &core->img_n.height);
+	core->img_n.data = (int *)mlx_get_data_addr(core->img_n.ptr,
+			&core->img_n.bpp, &core->img_n.size_l, &core->img_n.endian);
+	core->img_s.ptr = mlx_xpm_file_to_image(core->mlx, core->data->so,
+			&(core->img_s).width, &core->img_s.height);
+	core->img_s.data = (int *)mlx_get_data_addr(core->img_s.ptr,
+			&core->img_s.bpp, &core->img_s.size_l, &core->img_s.endian);
+	core->img_e.ptr = mlx_xpm_file_to_image(core->mlx, core->data->ea,
+			&(core->img_e).width, &core->img_e.height);
+	core->img_e.data = (int *)mlx_get_data_addr(core->img_e.ptr,
+			&core->img_e.bpp, &core->img_e.size_l, &core->img_e.endian);
+	core->img_w.ptr = mlx_xpm_file_to_image(core->mlx, core->data->we,
+			&(core->img_w).width, &core->img_w.height);
+	core->img_w.data = (int *)mlx_get_data_addr(core->img_w.ptr,
+			&core->img_w.bpp, &core->img_w.size_l, &core->img_w.endian);
 }
 
 int	make_image(t_core *core)
@@ -115,11 +135,15 @@ int	make_image(t_core *core)
 	core->img = mlx_new_image(core->mlx, S_W, S_H);
 	core->addr = mlx_get_data_addr(core->img, &core->bpp,
 			&core->line_len, &core->endian);
+	init_textures(core);
 	cieling_floor(core);
-	//insert_column(core, 60, 60, 20);
 	raycast_loop(core);
 	mlx_put_image_to_window(core->mlx, core->win, core->img, 0, 0);
 	mlx_destroy_image(core->mlx, core->img);
+	mlx_destroy_image(core->mlx, core->img_n.ptr);
+	mlx_destroy_image(core->mlx, core->img_s.ptr);
+	mlx_destroy_image(core->mlx, core->img_e.ptr);
+	mlx_destroy_image(core->mlx, core->img_w.ptr);
 	return (0);
 }
 
@@ -129,19 +153,13 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		ft_quit("wrong number of argument\n");
-    //first checking of the map extention
 	if (ft_extention_check(argv[1]) != 0)
 		ft_quit("wrong file extention\n");
-    //initialisation of data
 	init_data(&core);
-    //then retrieving of the map info and map structure
 	if (ft_parse_map(core, argv[1], 0) != 0)
 		ft_quit("unable to retrieve map info\n");
-    //cheking of map conformity
 	if (ft_map_validation(core) != 0)
 		ft_quit("invalid map\n");
-    //launch game
-    //handle keys
 	core->mlx = mlx_init();
 	if (core->mlx == NULL)
 		return (1);
