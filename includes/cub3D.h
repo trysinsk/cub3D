@@ -87,6 +87,7 @@ typedef struct s_color
 typedef struct s_data
 {
 	char	**map;
+	int		**mapi;
 	int		player_x;
 	int		player_y;
 	int		height;

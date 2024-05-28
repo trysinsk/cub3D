@@ -12,6 +12,57 @@
 
 #include "cub3D.h"
 
+int	allocate_mapi(t_core *core)
+{
+	int	i;
+	int	j;
+
+	core->data->mapi = malloc((core->data->width - 1) * sizeof(int *));
+	if (core->data->mapi == NULL)
+		return (-1);
+	i = 0;
+	while (i < core->data->width - 1)
+	{
+		core->data->mapi[i] = malloc(core->data->height * sizeof(int));
+		if (core->data->mapi[i] == NULL)
+		{
+			j = 0;
+			while (j < i)
+			{
+				free (core->data->mapi[j]);
+				j++;
+			}
+			return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	convert_map(t_core *core)
+{
+	int	i;
+	int	j;
+
+	if (allocate_mapi(core) == -1)
+		return (-1);
+	i = 0;
+	while (i < core->data->width - 1)
+	{
+		j = 0;
+		while (j < core->data->height)
+		{
+			if (core->data->map[j][i] == '1')
+				core->data->mapi[i][j] = 1;
+			else
+				core->data->mapi[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 void	print_map(t_core *core)
 {
 	int	i;
@@ -67,5 +118,7 @@ int	ft_retrieve_map(t_core *core, int fd, char *line)
 	}
 	core->data->height = i;
 	print_map(core);
+	if (convert_map(core) != 0)
+		return (1);
 	return (0);
 }
