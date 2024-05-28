@@ -29,8 +29,8 @@
 # include <X11/X.h>
 # include "libft.h"
 
-# define S_W 320				// screen width
-# define S_H 200				// screen height
+# define S_W 620				// screen width
+# define S_H 400				// screen height
 # define MAX_TILE 50
 # define TILE_SIZE 10			// tile size
 # define FOV 60					// field of view

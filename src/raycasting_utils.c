@@ -58,13 +58,14 @@ double horizontal_inter(t_core *core, double angle)
     if (angle > PI / 2 && angle < 3 * PI / 2)
         x_dir = -1;
     if (angle > 0 && angle < PI)
-        ay = floor((core->player->player_y / TILE_SIZE)) * TILE_SIZE - 1;
+        ay = floor((core->player->player_y / TILE_SIZE)) * TILE_SIZE - .0001;
     else
         ay = floor((core->player->player_y / TILE_SIZE)) * TILE_SIZE + TILE_SIZE;
-    ax = core->player->player_x + (core->player->player_y - ay) / tan(angle);
+    ax = core->player->player_x + x_dir * fabs((core->player->player_y - ay) / tan(angle));
     delta_x = x_dir * fabs(TILE_SIZE / tan(angle));
     delta_y = y_dir * TILE_SIZE;
     printf("in horizontal:\nax: %f ay: %f\ndelta_x: %f delta_y: %f\n", ax, ay, delta_x, delta_y);
+    printf("slope %f\n", delta_y/delta_x);
     while (in_bounds(ax, ay, core) == 0 && in_wall(ax, ay, core) != 1)
     {
         ax = ax + delta_x;
@@ -89,13 +90,14 @@ double vertical_inter(t_core *core, double angle)
     if (angle > PI / 2 && angle < 3 * PI / 2)
         x_dir = -1;
     if (angle > PI / 2 && angle < 3 * PI / 2)
-        ax = floor((core->player->player_x / TILE_SIZE)) * TILE_SIZE - 1;
+        ax = floor((core->player->player_x / TILE_SIZE)) * TILE_SIZE - .0001;
     else
         ax = floor((core->player->player_x / TILE_SIZE)) * TILE_SIZE + TILE_SIZE;
-    ay = core->player->player_y + (core->player->player_x - ax) * tan(angle);
+    ay = core->player->player_y + y_dir * fabs((core->player->player_x - ax) * tan(angle));
     delta_y = y_dir * fabs(TILE_SIZE * tan(angle));
     delta_x = x_dir * TILE_SIZE;
     printf("in vertical:\nax: %f ay: %f\ndelta_x: %f delta_y: %f\n", ax, ay, delta_x, delta_y);
+    printf("slope %f\n", delta_y/delta_x);
     while (in_bounds(ax, ay, core) == 0 && in_wall(ax, ay, core) != 1)
     {
         ax = ax + delta_x;
@@ -166,9 +168,11 @@ void	raycast_loop(t_core *core)
         printf ("vertical distance: %f\n", dist_v);
         if (dist_v < dist)
             dist = dist_v;
+        printf ("minimum distance: %f\n", dist);
         dist = dist * cos(angle - core->player->angle);
-        printf ("final distance: %f\n\n", dist);
+        printf ("corrected distance: %f\n\n", dist);
         height = height_of_wall(dist);
+        printf("height of wall: %d\n\n", height);
         insert_column(core, S_W - i, height);
         i++;
         angle += delta_r;
