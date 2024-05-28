@@ -21,11 +21,10 @@ int in_wall(double x, double y, t_core *core)
     j = floor(y / TILE_SIZE);
     if(core->data->mapi[i][j] == 1)
     {
-        printf("%f %f\n", x, y);
-        printf("%d, %d\n", i, j);
+        //printf("%f %f\n", x, y);
+        printf("wall at: %d, %d\n", i, j);
         return (1);
     }
-    //printf("not in wall: %d\n", core->data->mapi[i][j]);
     return (0);
 }
 
@@ -49,17 +48,23 @@ double horizontal_inter(t_core *core, double angle)
     double  ax;
     double  delta_x;
     double  delta_y;
+    int     x_dir;
+    int     y_dir;
 
+    x_dir = 1;
+    y_dir = 1;
+    if (angle > 0 && angle < PI)
+        y_dir = -1;
+    if (angle > PI / 2 && angle < 3 * PI / 2)
+        x_dir = -1;
     if (angle > 0 && angle < PI)
         ay = floor((core->player->player_y / TILE_SIZE)) * TILE_SIZE - 1;
     else
         ay = floor((core->player->player_y / TILE_SIZE)) * TILE_SIZE + TILE_SIZE;
     ax = core->player->player_x + (core->player->player_y - ay) / tan(angle);
-    delta_x = TILE_SIZE / tan(angle);
-    if (angle > 0 && angle < PI)
-        delta_y = -TILE_SIZE;
-    else
-        delta_y = TILE_SIZE;
+    delta_x = x_dir * fabs(TILE_SIZE / tan(angle));
+    delta_y = y_dir * TILE_SIZE;
+    //printf("h tan(angle): %f delta x: %f, y: %f\n", tan(angle), delta_x, delta_y);
     while (in_bounds(ax, ay, core) == 0 && in_wall(ax, ay, core) != 1)
     {
         ax = ax + delta_x;
@@ -74,17 +79,23 @@ double vertical_inter(t_core *core, double angle)
     double  ax;
     double  delta_x;
     double  delta_y;
+    int     x_dir;
+    int     y_dir;
 
+    x_dir = 1;
+    y_dir = 1;
+    if (angle > 0 && angle < PI)
+        y_dir = -1;
+    if (angle > PI / 2 && angle < 3 * PI / 2)
+        x_dir = -1;
     if (angle > PI / 2 && angle < 3 * PI / 2)
         ax = floor((core->player->player_x / TILE_SIZE)) * TILE_SIZE - 1;
     else
         ax = floor((core->player->player_x / TILE_SIZE)) * TILE_SIZE + TILE_SIZE;
     ay = core->player->player_y + (core->player->player_x - ax) * tan(angle);
-    delta_y = TILE_SIZE * tan(angle);
-    if (angle > PI / 2 && angle < 3 * PI / 2)
-        delta_x = -TILE_SIZE;
-    else
-        delta_x = TILE_SIZE;
+    delta_y = y_dir * fabs(TILE_SIZE * tan(angle));
+    delta_x = x_dir * TILE_SIZE;
+    printf("v angle %f, delta x: %f, y: %f\n", angle, delta_x, delta_y);
     while (in_bounds(ax, ay, core) == 0 && in_wall(ax, ay, core) != 1)
     {
         ax = ax + delta_x;
@@ -101,7 +112,7 @@ int  height_of_wall(double dist)
     d_to_p = S_W / 2 / tan(FOV * PI / 180 / 2);
     height = d_to_p * TILE_SIZE / dist;
     //printf("distance to screen: %f, distance to wall: %f, height of wall: %d, height of screen: %d, hiehgt of projected wall: %f\n", d_to_p, dist, TILE_SIZE, S_H, height);
-    return (floor(height));
+    return ((int)(height));
 }
 void	insert_column(t_core *core, int x, int height)
 {
@@ -141,8 +152,8 @@ void	raycast_loop(t_core *core)
     angle = core->player->angle - (FOV * PI / 180 / 2);
     delta_r = FOV * PI / 180 / S_W;
 
-    i = 0;
-    while (i < S_W)
+    i = 1;
+    while (i <= S_W)
     {
         dist = S_H * TILE_SIZE;
         dist_v = dist;
