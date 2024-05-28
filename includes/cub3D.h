@@ -73,8 +73,9 @@ typedef struct s_player
 typedef struct s_ray
 {
 	double	ray_angle;
-	double	distance;
-	int		flag_wall;
+	int		x_dir;
+	int		y_dir;
+	int		flag;
 }	t_ray;
 
 typedef struct s_color

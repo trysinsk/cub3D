@@ -48,20 +48,16 @@ double	horizontal_inter(t_core *core, double angle)
 	double	ax;
 	double	delta_x;
 	double	delta_y;
-	int		x_dir;
 
-	x_dir = 1;
-	if (angle > PI / 2 && angle < 3 * PI / 2)
-		x_dir = -1;
 	ay = floor((core->player->player_y / TILE_SIZE)) * TILE_SIZE + TILE_SIZE;
-	delta_x = x_dir * fabs(TILE_SIZE / tan(angle));
+	delta_x = core->ray->x_dir * fabs(TILE_SIZE / tan(angle));
 	delta_y = TILE_SIZE;
 	if (angle > 0 && angle < PI)
 	{
 		ay = floor((core->player->player_y / TILE_SIZE)) * TILE_SIZE - .0001;
 		delta_y = -1 * TILE_SIZE;
 	}
-	ax = core->player->player_x + x_dir
+	ax = core->player->player_x + core->ray->x_dir
 		* fabs((core->player->player_y - ay) / tan(angle));
 	while (in_bounds(ax, ay, core) == 0 && in_wall(ax, ay, core) != 1)
 	{
@@ -78,16 +74,12 @@ double	vertical_inter(t_core *core, double angle)
 	double	ax;
 	double	delta_x;
 	double	delta_y;
-	int		y_dir;
 
-	y_dir = 1;
-	if (angle > 0 && angle < PI)
-		y_dir = -1;
 	ax = floor((core->player->player_x / TILE_SIZE)) * TILE_SIZE + TILE_SIZE;
-	ay = core->player->player_y + y_dir
+	ay = core->player->player_y + core->ray->y_dir
 		* fabs((core->player->player_x - ax) * tan(angle));
 	delta_x = TILE_SIZE;
-	delta_y = y_dir * fabs(TILE_SIZE * tan(angle));
+	delta_y = core->ray->y_dir * fabs(TILE_SIZE * tan(angle));
 	if (angle > PI / 2 && angle < 3 * PI / 2)
 	{
 		ax = floor((core->player->player_x / TILE_SIZE)) * TILE_SIZE - .0001;
@@ -112,7 +104,7 @@ int	height_of_wall(double dist)
 }
 
 // insert a column onto the image
-void	insert_column(t_core *core, int x, int height)
+void	insert_column(t_core *core, int x, int height, double angle)
 {
 	int	count_h;
 	int	color;
@@ -129,10 +121,33 @@ void	insert_column(t_core *core, int x, int height)
 	while (count_h < top)
 	{
 		counter = (height / 64 * (x % 64 + count_h * 64)) % (64 * 64);
-		color = core->img_n.data[counter];
+		if (core->ray->flag == 1)
+		{
+			if (angle > PI / 2 && angle < 3 * PI / 2)
+				color = core->img_n.data[counter];
+			else
+				color = core->img_s.data[counter];
+		}
+		else
+		{
+			if (angle > 0 && angle < PI)
+				color = core->img_e.data[counter];
+			else
+				color = core->img_w.data[counter];
+		}
 		img_pix_put(core, x, count_h, color);
 		count_h++;
 	}
+}
+
+void	set_ray_direction(t_core *core, double angle)
+{
+	core->ray->y_dir = 1;
+	if (angle > 0 && angle < PI)
+		core->ray->y_dir = -1;
+	core->ray->x_dir = 1;
+	if (angle > PI / 2 && angle < 3 * PI / 2)
+		core->ray->x_dir = -1;
 }
 
 // cast rays to calculate the distance to the wall
@@ -149,14 +164,19 @@ void	raycast_loop(t_core *core)
 	i = 1;
 	while (i <= S_W)
 	{
+		set_ray_direction(core, angle);
 		dist = S_H * TILE_SIZE;
 		dist_v = dist;
 		dist = horizontal_inter(core, angle);
+		core->ray->flag = 0;
 		dist_v = vertical_inter(core, angle);
 		if (dist_v < dist)
+		{
 			dist = dist_v;
+			core->ray->flag = 1;
+		}
 		dist = dist * cos(angle - core->player->angle);
-		insert_column(core, S_W - i, height_of_wall(dist));
+		insert_column(core, S_W - i, height_of_wall(dist), angle);
 		i++;
 		angle += delta_r;
 	}
