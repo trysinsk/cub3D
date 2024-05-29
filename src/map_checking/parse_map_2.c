@@ -89,7 +89,5 @@ int	ft_retrieve_map(t_core *core, int fd, char *line)
 	}
 	core->data->height = i;
 	print_map(core);
-	if (convert_map(core) != 0)
-		return (1);
 	return (0);
 }

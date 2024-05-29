@@ -106,6 +106,8 @@ int	ft_parse_map(t_core *core, char *file, int index)
 	}
 	if (ft_retrieve_map(core, fd, line) != 0)
 		return (1);
+	if (convert_map(core) != 0)
+		return (1);
 	close (fd);
 	return (0);
 }

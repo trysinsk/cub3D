@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 14:20:58 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 16:33:16 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@
 # define MAX_TILE 100			// maximum size of map
 # define TILE_SIZE 64			// tile size
 # define FOV 60					// field of view
-# define ROTATION_SPEED 0.045	// rotation speed
-# define PLAYER_SPEED 4			// player speed
+# define ROTATION_SPEED 0.02	// rotation speed
+# define PLAYER_SPEED 2			// player speed
 # define PI 3.14159265
+# define WALL_BUFFER 10
 
 # define W		122
 # define A		113
@@ -121,6 +122,8 @@ typedef struct s_core
 	t_data		*data;
 }	t_core;
 
+void	init_data(t_core **core);
+
 //     error and quiting
 void	ft_quit(char *str);
 void	clean_data(t_core *core);
@@ -142,6 +145,7 @@ int		ft_retrieve_map(t_core *core, int fd, char *line);
 int		ft_map_validation(t_core *core);
 int		ft_check_outer_walls(t_core *core, char **map, int x, int y);
 int		ft_check_spaces(t_core *core, char **map, int x, int y);
+int		convert_map(t_core *core);
 
 //		raycating
 void	raycast_loop(t_core *core);
@@ -154,14 +158,14 @@ int		in_wall(double x, double y, t_core *core);
 int		height_of_wall(double dist);
 
 //		moves
-
-int 	stop_flag(int keycode, t_core *core);
-void    move_player(t_core *core);
-void    move_up(t_core *core);
-void    move_down(t_core *core);
-void    move_right(t_core *core);
-void    move_left(t_core *core);
-void    rotate_left(t_core *core);
-void    rotate_right(t_core *core);
+int		stop_flag(int keycode, t_core *core);
+void	move_player(t_core *core);
+void	move_up(t_core *core);
+void	move_down(t_core *core);
+void	move_right(t_core *core);
+void	move_left(t_core *core);
+void	rotate_left(t_core *core);
+void	rotate_right(t_core *core);
+int		is_in_wall(t_core *core, double pos, char c);
 
 #endif

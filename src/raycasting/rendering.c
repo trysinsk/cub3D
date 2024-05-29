@@ -6,11 +6,19 @@
 /*   By: mevonuk <mevonuk@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:56:47 by mevonuk           #+#    #+#             */
-/*   Updated: 2024/05/29 13:58:03 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/05/29 16:45:04 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+// render the image into the window
+int	render(t_core *vars)
+{
+	fill_image(*vars);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
+	return (0);
+}
 
 int	height_of_wall(double dist)
 {
@@ -40,17 +48,31 @@ int	get_pixel(t_core *core, double angle, int counter)
 	}
 }
 
+int	get_counter(t_core *core, double c2)
+{
+	int		counter;
+	double	xs;
+	int		x_off;
+
+	if (core->ray->flag == 0)
+		x_off = core->ray->ax % TILE_SIZE;
+	else
+		x_off = core->ray->ay % TILE_SIZE;
+	xs = (double)(x_off);
+	counter = ((int)c2 % TILE_SIZE) * core->img_e.size_l
+		+ ((int)xs % TILE_SIZE) * (core->img_e.bpp / 8);
+	counter = counter % (TILE_SIZE * TILE_SIZE);
+	return (counter);
+}
+
 // insert a column onto the image
 void	insert_column(t_core *core, int x, int height, double angle)
 {
 	int		count_h;
 	int		color;
 	int		top;
-	int		counter;
 	double	scale;
 	double	c2;
-	double	xs;
-	int		x_off;
 
 	count_h = S_H / 2 - height / 2;
 	top = S_H / 2 + height / 2;
@@ -60,19 +82,12 @@ void	insert_column(t_core *core, int x, int height, double angle)
 		top = S_H;
 	}
 	scale = (double)TILE_SIZE / (double)height / 2;
-	if (core->ray->flag == 0)
-		x_off = core->ray->ax % TILE_SIZE;
-	else
-		x_off = core->ray->ay % TILE_SIZE;
-	xs = (double)(x_off);
 	c2 = 0;
 	if (height > S_H)
 		c2 = (height - S_H) / 2 * scale;
 	while (count_h < top)
 	{
-		counter = ((int)c2 % TILE_SIZE) * core->img_e.size_l + ((int)xs % TILE_SIZE) * (core->img_e.bpp / 8);
-		counter = counter % (TILE_SIZE * TILE_SIZE);
-		color = get_pixel(core, angle, counter);
+		color = get_pixel(core, angle, get_counter(core, c2));
 		img_pix_put(core, x, count_h, color);
 		count_h++;
 		c2 += scale;

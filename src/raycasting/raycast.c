@@ -36,6 +36,7 @@ double	horizontal_inter(t_core *core, double angle)
 		ay = ay + delta_y;
 	}
 	core->ray->ax = ax;
+	core->ray->flag = 0;
 	return (distance(ax - core->player->player_x, ay - core->player->player_y));
 }
 
@@ -76,15 +77,14 @@ void	raycast_loop(t_core *core)
 
 	core->ray->angle = core->player->angle + (FOV * PI / 180 / 2);
 	delta_r = FOV * PI / 180 / S_W;
-	i = 0;
-	while (i < S_W)
+	i = -1;
+	while (++i < S_W)
 	{
 		core->ray->angle = normalize_angle(core->ray->angle);
 		set_ray_direction(core, core->ray->angle);
 		dist = S_H * TILE_SIZE;
 		dist_v = dist;
 		dist = horizontal_inter(core, core->ray->angle);
-		core->ray->flag = 0;
 		dist_v = vertical_inter(core, core->ray->angle);
 		if (dist_v < dist)
 		{
@@ -93,7 +93,6 @@ void	raycast_loop(t_core *core)
 		}
 		dist = dist * cos(core->ray->angle - core->player->angle);
 		insert_column(core, i, height_of_wall(dist), core->ray->angle);
-		i++;
 		core->ray->angle -= delta_r;
 	}
 }

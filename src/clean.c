@@ -36,7 +36,6 @@ void	clean_data(t_core *core)
 			free (core->ray);
 		free (core);
 	}
-	ft_printf("core data freed\n");
 }
 
 void	print_table(char **tab)
