@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:17:04 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 11:08:41 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:06:48 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,15 @@ double	vertical_inter(t_core *core, double angle)
 	double	delta_y;
 
 	ax = floor((core->player->player_x / TILE_SIZE)) * TILE_SIZE + TILE_SIZE;
-	ay = core->player->player_y + core->ray->y_dir
-		* fabs((core->player->player_x - ax) * tan(angle));
-	delta_x = TILE_SIZE;
 	delta_y = core->ray->y_dir * fabs(TILE_SIZE * tan(angle));
+	delta_x = TILE_SIZE;
 	if (angle > PI / 2 && angle < 3 * PI / 2)
 	{
 		ax = floor((core->player->player_x / TILE_SIZE)) * TILE_SIZE - .0001;
 		delta_x = -1 * TILE_SIZE;
 	}
+	ay = core->player->player_y + core->ray->y_dir
+		* fabs((core->player->player_x - ax) * tan(angle));
 	while (in_bounds(ax, ay, core) == 0 && in_wall(ax, ay, core) != 1)
 	{
 		ax = ax + delta_x;
