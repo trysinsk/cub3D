@@ -110,6 +110,9 @@ void	insert_column(t_core *core, int x, int height, double angle)
 	int	color;
 	int	top;
 	int	counter;
+	double	scale;
+	double	c2;
+	double	xs;
 
 	count_h = S_H / 2 - height / 2;
 	top = S_H / 2 + height / 2;
@@ -118,25 +121,33 @@ void	insert_column(t_core *core, int x, int height, double angle)
 		count_h = 0;
 		top = S_H;
 	}
+	scale = (double)TILE_SIZE / (double)height * 2;
+	xs = (double)x * scale;
+	c2 = 0;
 	while (count_h < top)
 	{
-		counter = (height / 64 * (x % 64 + count_h * 64)) % (64 * 64);
+		//printf("scale: %f, X %d, Y %d, x %d, y %f\n", scale, x, count_h, x, c2);
+		counter =  ((int)c2 % TILE_SIZE) * core->img_e.size_l + ((int)xs % TILE_SIZE) * (core->img_e.bpp / 8);
+		counter = counter % (TILE_SIZE * TILE_SIZE);
+		//printf("counter %d\n", counter);
+		//counter = (height / 64 * (x % 64 + count_h * 64)) % (64 * 64);
 		if (core->ray->flag == 1)
 		{
 			if (angle > PI / 2 && angle < 3 * PI / 2)
-				color = core->img_n.data[counter];
+				color = core->img_w.data[counter];
 			else
-				color = core->img_s.data[counter];
+				color = core->img_e.data[counter];
 		}
 		else
 		{
 			if (angle > 0 && angle < PI)
-				color = core->img_e.data[counter];
+				color = core->img_n.data[counter];
 			else
-				color = core->img_w.data[counter];
+				color = core->img_s.data[counter];
 		}
 		img_pix_put(core, x, count_h, color);
 		count_h++;
+		c2 += scale;
 	}
 }
 

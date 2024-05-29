@@ -100,11 +100,11 @@ void	cieling_floor(t_core *core)
 		while (++count_w < S_W)
 		{
 			if (count_h < S_H / 2)
-				color = create_trgb(1, core->data->f.r,
-						core->data->f.g, core->data->f.b);
-			else
 				color = create_trgb(1, core->data->c.r,
 						core->data->c.g, core->data->c.b);
+			else
+				color = create_trgb(1, core->data->f.r,
+						core->data->f.g, core->data->f.b);
 			img_pix_put(core, count_w, count_h, color);
 		}
 	}
