@@ -3,14 +3,14 @@ SO ./src/textures/red.xpm
 WE ./src/textures/purple.xpm
 EA ./src/textures/grey.xpm
 
-F 220,100,0
-C 225,30,0
+F 55,55,55
+C 111,111,111
 
 111111111
 100101001
 100101001
 110000011
-1000E0001
+1000S0001
 111000111
 100101001
 100101001
