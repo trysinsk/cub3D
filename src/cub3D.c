@@ -6,46 +6,11 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:06:13 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/28 16:23:25 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/05/29 11:04:44 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-int	exit_hook(t_core *core)
-{
-	mlx_destroy_window(core->mlx, core->win);
-	mlx_destroy_display(core->mlx);
-	free(core->mlx);
-	return (0);
-}
-
-int	handle_keyrelease(int keysym, t_core *core)
-{
-	(void) core;
-	ft_printf("%d\n", keysym);
-	/*if (keysym == W)
-	if (keysym == S)
-	if (keysym == A)
-	if (keysym == D)
-	if (keysym == LEFT)
-	if (keysym == RIGHT)*/
-	return (0);
-}
-
-int	handle_keypress(int keysym, t_core *core)
-{
-	ft_printf("%d\n", keysym);
-	if (keysym == XK_Escape)
-		mlx_destroy_window(core->mlx, core->win);
-	/*if (keysym == W)
-	if (keysym == S)
-	if (keysym == A)
-	if (keysym == D)
-	if (keysym == LEFT)
-	if (keysym == RIGHT)*/
-	return (0);
-}
 
 void	init_data(t_core **core)
 {

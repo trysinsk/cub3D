@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:17:04 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 10:52:22 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 11:08:41 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,10 +170,10 @@ void	raycast_loop(t_core *core)
 	double	delta_r;
 	double	angle;
 
-	angle = core->player->angle - (FOV * PI / 180 / 2);
+	angle = core->player->angle + (FOV * PI / 180 / 2);
 	delta_r = FOV * PI / 180 / S_W;
-	i = 1;
-	while (i <= S_W)
+	i = 0;
+	while (i < S_W)
 	{
         if (angle < 0)
             angle += (2 * PI);
@@ -191,8 +191,8 @@ void	raycast_loop(t_core *core)
 			core->ray->flag = 1;
 		}
 		dist = dist * cos(angle - core->player->angle);
-		insert_column(core, S_W - i, height_of_wall(dist), angle);
+		insert_column(core, i, height_of_wall(dist), angle);
 		i++;
-		angle += delta_r;
+		angle -= delta_r;
 	}
 }
