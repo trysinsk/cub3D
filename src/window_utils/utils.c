@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mevonuk <mevonuk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:17:16 by mevonuk           #+#    #+#             */
-/*   Updated: 2024/05/22 17:00:11 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/05/29 09:15:44 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,13 @@ int	close_win(int keycode, t_core *core)
 	ft_printf("in close win: %d\n", keycode);
 	if (keycode == XK_Escape)
 		on_destroy(core);
+	if (keycode == W)
+		move_up(core);
+	if (keycode == S)
+		move_down(core);
+	if (keycode == D)
+		move_right(core);
+	if (keycode == A)
+		move_left(core);
 	return (0);
 }

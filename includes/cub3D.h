@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/28 14:32:09 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/05/29 09:19:11 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,12 @@ int		ft_check_spaces(t_core *core, char **map, int x, int y);
 //		raycating
 
 void	raycast_loop(t_core *core);
+
+//		moves
+
+void    move_up(t_core *core);
+void    move_down(t_core *core);
+void    move_right(t_core *core);
+void    move_left(t_core *core);
 
 #endif
