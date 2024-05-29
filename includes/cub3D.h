@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 14:11:20 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:20:58 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,12 @@ typedef struct s_player
 
 typedef struct s_ray
 {
-	double	ray_angle;
+	double	angle;
 	int		x_dir;
 	int		y_dir;
 	int		flag;
+	int		ax;
+	int		ay;
 }	t_ray;
 
 typedef struct s_color
@@ -142,13 +144,19 @@ int		ft_check_outer_walls(t_core *core, char **map, int x, int y);
 int		ft_check_spaces(t_core *core, char **map, int x, int y);
 
 //		raycating
-
 void	raycast_loop(t_core *core);
+double	normalize_angle(double angle);
+void	insert_column(t_core *core, int x, int height, double angle);
+void	set_ray_direction(t_core *core, double angle);
+int		in_bounds(double x, double y, t_core *core);
+double	distance(double x, double y);
+int		in_wall(double x, double y, t_core *core);
+int		height_of_wall(double dist);
 
 //		moves
 
-void    move_player(t_core *core);
 int 	stop_flag(int keycode, t_core *core);
+void    move_player(t_core *core);
 void    move_up(t_core *core);
 void    move_down(t_core *core);
 void    move_right(t_core *core);
