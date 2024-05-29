@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:17:16 by mevonuk           #+#    #+#             */
-/*   Updated: 2024/05/29 09:15:44 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 10:29:19 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,9 @@ int	close_win(int keycode, t_core *core)
 		move_right(core);
 	if (keycode == A)
 		move_left(core);
+	if (keycode == RIGHT)
+		rotate_right(core);
+	if (keycode == LEFT)
+		rotate_left(core);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 09:19:11 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 10:29:48 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,7 @@ void    move_up(t_core *core);
 void    move_down(t_core *core);
 void    move_right(t_core *core);
 void    move_left(t_core *core);
+void    rotate_left(t_core *core);
+void    rotate_right(t_core *core);
 
 #endif

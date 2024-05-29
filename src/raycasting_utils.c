@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:17:04 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/28 16:19:03 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/05/29 10:52:22 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,10 @@ void	raycast_loop(t_core *core)
 	i = 1;
 	while (i <= S_W)
 	{
+        if (angle < 0)
+            angle += (2 * PI);
+        if (angle > 2 * PI)
+            angle -= (2 * PI);
 		set_ray_direction(core, angle);
 		dist = S_H * TILE_SIZE;
 		dist_v = dist;
