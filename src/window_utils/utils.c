@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:17:16 by mevonuk           #+#    #+#             */
-/*   Updated: 2024/05/29 10:29:19 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:10:10 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,34 @@ int	close_win(int keycode, t_core *core)
 	if (keycode == XK_Escape)
 		on_destroy(core);
 	if (keycode == W)
-		move_up(core);
+		core->player->up_down = 1;
 	if (keycode == S)
-		move_down(core);
+		core->player->up_down = -1;
 	if (keycode == D)
-		move_right(core);
+		core->player->left_right = -1;
 	if (keycode == A)
-		move_left(core);
+		core->player->left_right = 1;
 	if (keycode == RIGHT)
-		rotate_right(core);
+		core->player->rotation = 1;
 	if (keycode == LEFT)
-		rotate_left(core);
+		core->player->rotation = -1;
+	return (0);
+}
+
+int stop_flag(int keycode, t_core *core)
+{
+	printf("in stop flag\n");
+	if (keycode == W)
+		core->player->up_down = 0;
+	if (keycode == S)
+		core->player->up_down = 0;
+	if (keycode == D)
+		core->player->left_right = 0;
+	if (keycode == A)
+		core->player->left_right = 0;
+	if (keycode == RIGHT)
+		core->player->rotation = 0;
+	if (keycode == LEFT)
+		core->player->rotation = 0;
 	return (0);
 }

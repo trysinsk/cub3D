@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:06:13 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 11:04:44 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:04:45 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ void	init_data(t_core **core)
 	(*core)->data->width = -1;
 	(*core)->data->player_x = -1;
 	(*core)->data->player_y = -1;
+	(*core)->player->up_down = 0;
+	(*core)->player->left_right = 0;
+	(*core)->player->rotation = 0;
 }
 
 void	cieling_floor(t_core *core)
@@ -109,6 +112,7 @@ int	make_image(t_core *core)
 	mlx_destroy_image(core->mlx, core->img_s.ptr);
 	mlx_destroy_image(core->mlx, core->img_e.ptr);
 	mlx_destroy_image(core->mlx, core->img_w.ptr);
+	move_player(core);
 	return (0);
 }
 
@@ -133,6 +137,7 @@ int	main(int argc, char **argv)
 		return (free(core->mlx), 1);
 	mlx_loop_hook(core->mlx, make_image, core);
 	mlx_hook(core->win, 2, 1L << 0, close_win, core);
+	mlx_hook(core->win, 3, 1L << 1, stop_flag, core);
 	mlx_hook(core->win, DestroyNotify, StructureNotifyMask, &on_destroy, core);
 	mlx_loop(core->mlx);
 }
