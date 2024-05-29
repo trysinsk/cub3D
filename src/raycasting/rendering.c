@@ -81,7 +81,7 @@ void	insert_column(t_core *core, int x, int height, double angle)
 		count_h = 0;
 		top = S_H;
 	}
-	scale = (double)TILE_SIZE / (double)height / 2;
+	scale = (double)TILE_SIZE / (double)height;
 	c2 = 0;
 	if (height > S_H)
 		c2 = (height - S_H) / 2 * scale;

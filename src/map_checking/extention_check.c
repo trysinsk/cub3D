@@ -16,7 +16,7 @@ char	*get_dot(char *file)
 {
 	char	*dot;
 
-	dot = ft_strchr(file, '.');
+	dot = ft_strrchr(file, '.');
 	if (dot == NULL || dot == file)
 		return ("");
 	dot++;
