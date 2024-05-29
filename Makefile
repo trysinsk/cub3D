@@ -6,7 +6,7 @@
 #    By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 09:55:06 by mevonuk           #+#    #+#              #
-#    Updated: 2024/05/29 14:23:34 by trysinsk         ###   ########.fr        #
+#    Updated: 2024/05/29 14:25:20 by trysinsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ MAP_CHECKING	=	$(addprefix map_checking/, extention_check.c \
 					parse_map_1.c parse_map_2.c map_validation_1.c \
 					map_validation_2.c)
 ERROR_MANAGING	=	$(addprefix error_managing/, quit.c)
-WINDOW_UTILS	=	$(addprefix window_utils/, utils.c color.c move1.c move2 )
+WINDOW_UTILS	=	$(addprefix window_utils/, utils.c color.c move1.c move2.c )
 RAYCASTING		=	$(addprefix raycasting/, raycast.c raycasting_utils.c rendering.c )
 SRC 			=	cub3D.c clean.c \
 					$(MAP_CHECKING) \
