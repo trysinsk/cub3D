@@ -61,7 +61,7 @@ void	insert_column(t_core *core, int x, int height, double angle)
 	}
 	scale = (double)TILE_SIZE / (double)height / 2;
 	if (core->ray->flag == 0)
-		0 = core->ray->ax % TILE_SIZE;
+		x_off = core->ray->ax % TILE_SIZE;
 	else
 		x_off = core->ray->ay % TILE_SIZE;
 	xs = (double)(x_off);
