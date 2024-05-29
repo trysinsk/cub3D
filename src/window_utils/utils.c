@@ -83,13 +83,13 @@ int	close_win(int keycode, t_core *core)
 	ft_printf("in close win: %d\n", keycode);
 	if (keycode == XK_Escape)
 		on_destroy(core);
-	if (keycode == W)
+	if (keycode == 119)
 		move_up(core);
 	if (keycode == S)
 		move_down(core);
 	if (keycode == D)
 		move_right(core);
-	if (keycode == A)
+	if (keycode == 97)
 		move_left(core);
 	if (keycode == RIGHT)
 		rotate_right(core);

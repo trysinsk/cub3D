@@ -35,13 +35,15 @@ INC			=	-I ./includes/\
 SRC_PATH	=	src/
 MAP_CHECKING	=	$(addprefix map_checking/, extention_check.c \
 					parse_map_1.c parse_map_2.c map_validation_1.c \
-					map_validation_2.c)
-ERROR_MANAGING	=	$(addprefix error_managing/, quit.c)
+					map_validation_2.c )
+ERROR_MANAGING	=	$(addprefix error_managing/, quit.c )
 WINDOW_UTILS	=	$(addprefix window_utils/, utils.c color.c move.c )
-SRC 			=	cub3D.c clean.c raycasting_utils.c \
+RAYCASTING		=	$(addprefix raycasting/, raycast.c raycasting_utils.c rendering.c )
+SRC 			=	cub3D.c clean.c \
 					$(MAP_CHECKING) \
 					$(ERROR_MANAGING) \
 					$(WINDOW_UTILS) \
+					$(RAYCASTING) \
 
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 

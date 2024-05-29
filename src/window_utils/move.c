@@ -73,8 +73,7 @@ void    rotate_left(t_core *core)
 {
     printf("current angle: %f\n", core->player->angle);
     core->player->angle += ROTATION_SPEED;
-    if (core->player->angle > (2 * PI))
-        core->player->angle -= (2 * PI);
+    core->player->angle = normalize_angle(core->player->angle);
     printf("new angle: %f\n", core->player->angle);
 }
 
@@ -82,7 +81,6 @@ void    rotate_right(t_core *core)
 {
     printf("current angle: %f\n", core->player->angle);
     core->player->angle -= ROTATION_SPEED;
-        if (core->player->angle < 0)
-        core->player->angle += (2 * PI);
+    core->player->angle = normalize_angle(core->player->angle);
     printf("new angle: %f\n", core->player->angle);
 }
