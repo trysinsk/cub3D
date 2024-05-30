@@ -78,6 +78,7 @@ typedef struct s_ray
 	int		x_dir;
 	int		y_dir;
 	int		flag;
+	int		door;
 	int		ax;
 	int		ay;
 }	t_ray;
@@ -113,6 +114,7 @@ typedef struct s_core
 	t_img		img_s;
 	t_img		img_e;
 	t_img		img_w;
+	t_img		img_door;
 	char		*addr;
 	int			bpp;
 	int			endian;

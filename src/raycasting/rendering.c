@@ -32,6 +32,8 @@ int	height_of_wall(double dist)
 
 int	get_pixel(t_core *core, double angle, int counter)
 {
+	if (core->ray->door == 1)
+		return (core->img_door.data[counter]);
 	if (core->ray->flag == 1)
 	{
 		if (angle > PI / 2 && angle < 3 * PI / 2)

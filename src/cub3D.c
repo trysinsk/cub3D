@@ -53,6 +53,10 @@ void	init_textures(t_core *core)
 			&(core->img_w).width, &core->img_w.height);
 	core->img_w.data = (int *)mlx_get_data_addr(core->img_w.ptr,
 			&core->img_w.bpp, &core->img_w.size_l, &core->img_w.endian);
+	core->img_door.ptr = mlx_xpm_file_to_image(core->mlx, "./src/textures/wood.xpm",
+			&(core->img_door).width, &core->img_door.height);
+	core->img_door.data = (int *)mlx_get_data_addr(core->img_door.ptr,
+			&core->img_door.bpp, &core->img_door.size_l, &core->img_door.endian);
 }
 
 int	make_image(t_core *core)
@@ -69,6 +73,7 @@ int	make_image(t_core *core)
 	mlx_destroy_image(core->mlx, core->img_s.ptr);
 	mlx_destroy_image(core->mlx, core->img_e.ptr);
 	mlx_destroy_image(core->mlx, core->img_w.ptr);
+	mlx_destroy_image(core->mlx, core->img_door.ptr);
 	move_player(core);
 	return (0);
 }
