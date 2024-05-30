@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:05:24 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/30 09:59:24 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 10:15:43 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,12 @@ void	toggle_door(t_core *core)
 		yd += ILLUSION_BUFFER;
 	new_pos_x = floor((core->player->player_x + xd) / TILE_SIZE);
 	new_pos_y = floor((core->player->player_y + yd) / TILE_SIZE);
-	printf ("current x: %f current y: %f\n", core->player->player_x / TILE_SIZE, core->player->player_y / TILE_SIZE);
-	printf ("x: %d Y: %d\n", new_pos_x, new_pos_y);
-	if (core->data->map[new_pos_y][new_pos_x] == '2')
-		core->data->map[new_pos_y][new_pos_x] = '3';
-	else if (core->data->map[new_pos_y][new_pos_x] == '3')
-		core->data->map[new_pos_y][new_pos_x] = '2';
+	if (new_pos_x != floor(core->player->player_x / TILE_SIZE)
+		|| new_pos_y != floor(core->player->player_y / TILE_SIZE))
+	{
+		if (core->data->map[new_pos_y][new_pos_x] == '2')
+			core->data->map[new_pos_y][new_pos_x] = '3';
+		else if (core->data->map[new_pos_y][new_pos_x] == '3')
+			core->data->map[new_pos_y][new_pos_x] = '2';
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/30 09:52:54 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/05/30 10:14:30 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define PLAYER_SPEED 2			// player speed
 # define PI 3.14159265
 # define WALL_BUFFER 10
-# define ILLUSION_BUFFER 20
+# define ILLUSION_BUFFER 32
 
 # define W		122
 # define A		113
