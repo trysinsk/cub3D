@@ -1,6 +1,6 @@
-NO ./src/textures/tree.xpm
-SO ./src/textures/red.xpm
-WE ./src/textures/purple.xpm
+NO ./src/textures/stonewall.xpm
+SO ./src/textures/tree.xpm
+WE ./src/textures/wood.xpm
 EA ./src/textures/grey.xpm
 
 F 55,55,55

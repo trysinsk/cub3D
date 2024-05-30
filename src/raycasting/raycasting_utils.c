@@ -20,7 +20,7 @@ int	in_wall(double x, double y, t_core *core)
 
 	i = floor(x / TILE_SIZE);
 	j = floor(y / TILE_SIZE);
-	if (core->data->mapi[i][j] == 1)
+	if (core->data->map[j][i] == '1')
 		return (1);
 	return (0);
 }

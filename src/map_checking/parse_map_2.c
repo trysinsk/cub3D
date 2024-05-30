@@ -12,28 +12,6 @@
 
 #include "cub3D.h"
 
-int	convert_map(t_core *core)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < core->data->width - 1)
-	{
-		j = 0;
-		while (j < core->data->height)
-		{
-			if (core->data->map[j][i] == '1')
-				core->data->mapi[i][j] = 1;
-			else
-				core->data->mapi[i][j] = 0;
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
 void	print_map(t_core *core)
 {
 	int	i;
