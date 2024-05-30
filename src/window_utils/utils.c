@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-// put pixel with color depending on fractol value
+// put pixel with color depending on value
 void	img_pix_put(t_core *img, int x, int y, int color)
 {
 	char	*pixel;
@@ -30,7 +30,7 @@ void	img_pix_put(t_core *img, int x, int y, int color)
 	}
 }
 
-// fill the image file with the colored pixels based on the chosen fractol
+// fill the image file with the colored pixels based on the chosen 
 void	fill_image(t_core vars)
 {
 	int		i;

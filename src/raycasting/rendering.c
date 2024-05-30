@@ -59,8 +59,8 @@ int	get_counter(t_core *core, double c2)
 		x_off = core->ray->ax % TILE_SIZE;
 	else
 		x_off = core->ray->ay % TILE_SIZE;
-	counter = (int)c2 * core->img_e.size_l
-		+ x_off / 4 * (core->img_e.bpp / 8);
+	counter = ((int)c2 * core->img_e.size_l
+		+ x_off * (core->img_e.bpp / 8)) / 4;
 	return (counter);
 }
 
@@ -80,7 +80,7 @@ void	insert_column(t_core *core, int x, int height, double angle)
 		count_h = 0;
 		top = S_H;
 	}
-	scale = (double)TILE_SIZE / (double)height / 4;
+	scale = (double)TILE_SIZE / (double)height;
 	c2 = 0;
 	if (height > S_H)
 		c2 = (height - S_H) / 2 * scale;
