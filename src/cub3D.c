@@ -67,7 +67,6 @@ int	make_image(t_core *core)
 	init_textures(core);
 	cieling_floor(core);
 	raycast_loop(core);
-	draw_door(core);
 	mlx_put_image_to_window(core->mlx, core->win, core->img, 0, 0);
 	mlx_destroy_image(core->mlx, core->img);
 	mlx_destroy_image(core->mlx, core->img_n.ptr);
