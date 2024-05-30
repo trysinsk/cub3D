@@ -12,14 +12,6 @@
 
 #include "cub3D.h"
 
-// render the image into the window
-int	render(t_core *vars)
-{
-	fill_image(*vars);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 0, 0);
-	return (0);
-}
-
 int	height_of_wall(double dist)
 {
 	double	height;
@@ -30,9 +22,46 @@ int	height_of_wall(double dist)
 	return ((int)(height));
 }
 
-int	get_pixel(t_core *core, double angle, int counter)
+int	get_counter(t_core *core, double c2)
 {
-	if (core->ray->door == 1)
+	int		counter;
+	int		x_off;
+
+	if (core->ray->flag == 0)
+		x_off = core->ray->ax % TILE_SIZE;
+	else
+		x_off = core->ray->ay % TILE_SIZE;
+	counter = ((int)c2 * core->img_e.size_l
+			+ x_off * (core->img_e.bpp / 8)) / 4;
+	return (counter);
+}
+
+int	in_door(t_core *core)
+{
+	int	i;
+	int	j;
+
+	if (core->ray->flag == 0)
+	{
+		i = floor(core->ray->pxh / TILE_SIZE);
+		j = floor(core->ray->pyh / TILE_SIZE);
+	}
+	else
+	{
+		i = floor(core->ray->pxv / TILE_SIZE);
+		j = floor(core->ray->pyv / TILE_SIZE);
+	}
+	if (core->data->map[j][i] == '2')
+		return (1);
+	return (0);
+}
+
+int	get_pixel(t_core *core, double angle, double c2)
+{
+	int	counter;
+
+	counter = get_counter(core, c2);
+	if (in_door(core) == 1)
 		return (core->img_door.data[counter]);
 	if (core->ray->flag == 1)
 	{
@@ -48,20 +77,6 @@ int	get_pixel(t_core *core, double angle, int counter)
 		else
 			return (core->img_s.data[counter]);
 	}
-}
-
-int	get_counter(t_core *core, double c2)
-{
-	int		counter;
-	int		x_off;
-
-	if (core->ray->flag == 0)
-		x_off = core->ray->ax % TILE_SIZE;
-	else
-		x_off = core->ray->ay % TILE_SIZE;
-	counter = ((int)c2 * core->img_e.size_l
-			+ x_off * (core->img_e.bpp / 8)) / 4;
-	return (counter);
 }
 
 // insert a column onto the image
@@ -86,7 +101,7 @@ void	insert_column(t_core *core, int x, int height, double angle)
 		c2 = (height - S_H) / 2 * scale;
 	while (count_h < top)
 	{
-		color = get_pixel(core, angle, get_counter(core, c2));
+		color = get_pixel(core, angle, c2);
 		img_pix_put(core, x, count_h, color);
 		count_h++;
 		c2 += scale;

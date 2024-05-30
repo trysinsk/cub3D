@@ -36,6 +36,8 @@ double	horizontal_inter(t_core *core, double angle)
 		ay = ay + delta_y;
 	}
 	core->ray->ax = ax;
+	core->ray->pxh = ax;
+	core->ray->pyh = ay;
 	core->ray->flag = 0;
 	return (distance(ax - core->player->player_x, ay - core->player->player_y));
 }
@@ -64,6 +66,8 @@ double	vertical_inter(t_core *core, double angle)
 		ay = ay + delta_y;
 	}
 	core->ray->ay = ay;
+	core->ray->pxv = ax;
+	core->ray->pyv = ay;
 	return (distance(ax - core->player->player_x, ay - core->player->player_y));
 }
 

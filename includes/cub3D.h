@@ -89,6 +89,10 @@ typedef struct s_ray
 	int		door;
 	int		ax;
 	int		ay;
+	int		pxh;
+	int		pyh;
+	int		pxv;
+	int		pyv;
 }	t_ray;
 
 typedef struct s_color
@@ -146,7 +150,6 @@ int		close_win(int keycode, t_core *core);
 void	img_pix_put(t_core *img, int x, int y, int color);
 void	fill_image(t_core vars);
 void	img_pix_put(t_core *img, int x, int y, int color);
-int		render(t_core *vars);
 int		create_trgb(int t, int r, int g, int b);
 int		mouse_on(int button, int x, int y, t_core *core);
 int		mouse_off(int button, int x, int y, t_core *core);
