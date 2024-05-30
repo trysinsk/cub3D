@@ -92,7 +92,6 @@ typedef struct s_color
 typedef struct s_data
 {
 	char	**map;
-	int		mapi[MAX_TILE][MAX_TILE];
 	int		player_x;
 	int		player_y;
 	int		height;
@@ -146,7 +145,8 @@ int		ft_retrieve_map(t_core *core, int fd, char *line);
 int		ft_map_validation(t_core *core);
 int		ft_check_outer_walls(t_core *core, char **map, int x, int y);
 int		ft_check_spaces(t_core *core, char **map, int x, int y);
-int		convert_map(t_core *core);
+void	ft_image_extention_check(t_core *core, char *file, char *ret);
+void	rgb_color_check(t_core *core, char *line, t_color color);
 
 //		raycating
 void	raycast_loop(t_core *core);

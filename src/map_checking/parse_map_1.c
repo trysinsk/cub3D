@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-t_color	get_color(char *line)
+t_color	get_color(t_core *core, char *line)
 {
 	t_color	ret;
 	char	*color;
@@ -30,10 +30,11 @@ t_color	get_color(char *line)
 	ret.g = ft_atoi(ctab[1]);
 	ret.b = ft_atoi(ctab[2]);
 	ft_free_tab(ctab);
+	rgb_color_check(core, line, ret);
 	return (ret);
 }
 
-char	*get_path(char *line)
+char	*get_path(t_core *core, char *line)
 {
 	char	*ret;
 	char	*path;
@@ -53,23 +54,24 @@ char	*get_path(char *line)
 		path++;
 	}
 	ret[i] = '\0';
+	ft_image_extention_check(core, line, ret);
 	return (ret);
 }
 
 void	fill_texture(t_core *core, char *line)
 {
 	if (!ft_strncmp(line, "NO", 2))
-		core->data->no = get_path(line);
+		core->data->no = get_path(core, line);
 	else if (!ft_strncmp(line, "SO", 2))
-		core->data->so = get_path(line);
+		core->data->so = get_path(core, line);
 	else if (!ft_strncmp(line, "WE", 2))
-		core->data->we = get_path(line);
+		core->data->we = get_path(core, line);
 	else if (!ft_strncmp(line, "EA", 2))
-		core->data->ea = get_path(line);
+		core->data->ea = get_path(core, line);
 	else if (!ft_strncmp(line, "F", 1))
-		core->data->f = get_color(line);
+		core->data->f = get_color(core, line);
 	else if (!ft_strncmp(line, "C", 1))
-		core->data->c = get_color(line);
+		core->data->c = get_color(core, line);
 }
 
 int	check_texture(char *line)
@@ -105,8 +107,6 @@ int	ft_parse_map(t_core *core, char *file, int index)
 		line = ft_get_next_line(fd);
 	}
 	if (ft_retrieve_map(core, fd, line) != 0)
-		return (1);
-	if (convert_map(core) != 0)
 		return (1);
 	close (fd);
 	return (0);
