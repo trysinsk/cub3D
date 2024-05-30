@@ -24,6 +24,7 @@ void	init_player(t_core *core)
 	core->player->up_down = 0;
 	core->player->left_right = 0;
 	core->player->rotation = 0;
+	core->player->mouse_x = 0;
 }
 
 void	init_ray(t_core *core)

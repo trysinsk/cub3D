@@ -49,6 +49,12 @@
 # define LEFT	65361
 # define RIGHT	65363
 
+# define MOUSE_WHEEL_UP 4
+# define MOUSE_WHEEL_DOWN 5
+# define MOUSE_WHEEL_BTN 2
+# define MOUSE_BTN_L 1
+# define MOUSE_BTN_R 3
+
 typedef struct s_img
 {
 	void	*ptr;
@@ -70,6 +76,7 @@ typedef struct s_player
 	int		rotation;
 	int		left_right;
 	int		up_down;
+	int		mouse_x;
 }	t_player;
 
 typedef struct s_ray
@@ -139,6 +146,9 @@ void	fill_image(t_core vars);
 void	img_pix_put(t_core *img, int x, int y, int color);
 int		render(t_core *vars);
 int		create_trgb(int t, int r, int g, int b);
+int		mouse_on(int button, int x, int y, t_core *core);
+int		mouse_off(int button, int x, int y, t_core *core);
+int		mouse_move(int x, int y, t_core *core);
 
 //     map checking
 int		ft_extention_check(char *file);
