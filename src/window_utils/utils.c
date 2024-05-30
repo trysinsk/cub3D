@@ -87,6 +87,8 @@ int	close_win(int keycode, t_core *core)
 		core->player->rotation = 1;
 	if (keycode == LEFT)
 		core->player->rotation = -1;
+	if (keycode == MAP)
+		core->map = (core->map + 1) % 2;
 	return (0);
 }
 

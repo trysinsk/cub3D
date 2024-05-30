@@ -48,6 +48,7 @@
 # define DOWN	65364
 # define LEFT	65361
 # define RIGHT	65363
+# define MAP	109
 
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
@@ -126,6 +127,7 @@ typedef struct s_core
 	int			bpp;
 	int			endian;
 	int			line_len;
+	int			map;
 	t_player	*player;
 	t_ray		*ray;
 	t_data		*data;
@@ -160,7 +162,7 @@ int		ft_check_spaces(t_core *core, char **map, int x, int y);
 void	ft_image_extention_check(t_core *core, char *file, char *ret);
 void	rgb_color_check(t_core *core, char *line, t_color color);
 
-//		raycating
+//		raycasting
 void	raycast_loop(t_core *core);
 double	normalize_angle(double angle);
 void	insert_column(t_core *core, int x, int height, double angle);
@@ -169,6 +171,9 @@ int		in_bounds(double x, double y, t_core *core);
 double	distance(double x, double y);
 int		in_wall(double x, double y, t_core *core);
 int		height_of_wall(double dist);
+
+//2D map
+void	toggle_map(t_core *core);
 
 //		moves
 int		stop_flag(int keycode, t_core *core);

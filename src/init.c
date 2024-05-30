@@ -64,4 +64,5 @@ void	init_data(t_core **core)
 	(*core)->data->width = -1;
 	(*core)->data->player_x = -1;
 	(*core)->data->player_y = -1;
+	(*core)->map = 0;
 }

@@ -60,7 +60,7 @@ int	get_counter(t_core *core, double c2)
 	else
 		x_off = core->ray->ay % TILE_SIZE;
 	counter = ((int)c2 * core->img_e.size_l
-		+ x_off * (core->img_e.bpp / 8)) / 4;
+			+ x_off * (core->img_e.bpp / 8)) / 4;
 	return (counter);
 }
 
