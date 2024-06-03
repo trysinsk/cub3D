@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:18:12 by mevonuk           #+#    #+#             */
-/*   Updated: 2024/06/03 08:50:59 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:04:33 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_player(t_core *core)
 	{
 		free(core->data);
 		free(core);
-		ft_quit("error: allocation failed\n");
+		ft_quit("error: allocation failed\n", core);
 	}
 	core->player->up_down = 0;
 	core->player->left_right = 0;
@@ -36,7 +36,7 @@ void	init_ray(t_core *core)
 		free(core->data);
 		free(core->player);
 		free(core);
-		ft_quit("error: allocation failed\n");
+		ft_quit("error: allocation failed\n,", core);
 	}
 }
 
@@ -44,12 +44,12 @@ void	init_data(t_core **core)
 {
 	*core = (t_core *)malloc(1 * sizeof(t_core));
 	if (!core)
-		ft_quit("error: allocation failed\n");
+		ft_quit("error: allocation failed\n", *core);
 	(*core)->data = (t_data *)malloc(sizeof(t_data));
 	if (!(*core)->data)
 	{
 		free(*core);
-		ft_quit("error: allocation failed\n");
+		ft_quit("error: allocation failed\n", *core);
 	}
 	else
 	{

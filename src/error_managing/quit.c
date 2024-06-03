@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:37:04 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/03 10:51:44 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:03:12 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_quit(char *str, t_core *core)
 {
+	printf("Error\n");
 	printf("%s", str);
 	clean_data(core);
 	exit (1);
