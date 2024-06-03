@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:43:04 by mevonuk           #+#    #+#             */
-/*   Updated: 2024/06/03 09:42:18 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:41:54 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,34 @@ int	color_2d_map(t_core *core, int count_h, int count_w, int scale)
 	if (core->data->map[count_h / scale][count_w / scale] == 'B')
 		return (create_trgb(1, 255, 255, 0));
 	return (create_trgb(1, 0, 0, 0));
+}
+
+void	plot_direction(t_core *core, int i, double angle)
+{
+	double	px;
+	double	py;
+	int		color;
+	int		count_h;
+	int		count_w;
+
+	if (angle < 0)
+		angle += (2 * PI);
+	else if (angle > (2 * PI))
+		angle -= (2 * PI);
+	px = cos(angle);
+	py = -sin(angle);
+	px *= i * 10;
+	py *= i * 10;
+	px = (core->player->player_x + floor(px)) * 10 / TILE_SIZE;
+	py = (core->player->player_y + floor(py)) * 10 / TILE_SIZE;
+	color = create_trgb(1, 255, 120, 120);
+	count_h = py - 1;
+	while (++count_h < py + 1)
+	{
+		count_w = px - 1;
+		while (++count_w < px + 1)
+			img_pix_put(core, count_w, count_h, color);
+	}
 }
 
 void	plot_position(t_core *core, int scale)
@@ -53,6 +81,7 @@ void	toggle_map(t_core *core)
 	int		count_w;
 	int		color;
 	int		scale;
+	int		i;
 
 	count_h = -1;
 	scale = 10;
@@ -66,4 +95,11 @@ void	toggle_map(t_core *core)
 		}
 	}
 	plot_position(core, scale);
+	i = 0;
+	while (i < 8)
+	{
+		plot_direction(core, i, core->player->angle + (30 * PI / 180));
+		plot_direction(core, i, core->player->angle - (30 * PI / 180));
+		i++;
+	}
 }
