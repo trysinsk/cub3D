@@ -66,11 +66,11 @@ void	plot_position(t_core *core, int scale)
 	px = (int)(core->player->player_x * scale / TILE_SIZE);
 	py = (int)(core->player->player_y * scale / TILE_SIZE);
 	color = create_trgb(1, 255, 0, 0);
-	count_h = py - 2;
-	while (++count_h < py + 2)
+	count_h = py - 3;
+	while (++count_h < py + 3)
 	{
-		count_w = px - 2;
-		while (++count_w < px + 2)
+		count_w = px - 3;
+		while (++count_w < px + 3)
 			img_pix_put(core, count_w, count_h, color);
 	}
 }
