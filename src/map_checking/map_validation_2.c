@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:12:51 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/03 10:44:45 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:41:06 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	check_texture_file(t_core *core)
 {
-	int fd;
-	
+	int	fd;
+
 	fd = open(core->data->no, O_RDONLY);
 	if (fd < 0)
 		return (1);
