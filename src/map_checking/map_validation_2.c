@@ -6,11 +6,38 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:12:51 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/22 17:14:03 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/06/03 10:44:45 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	check_texture_file(t_core *core)
+{
+	int fd;
+	
+	fd = open(core->data->no, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	close (fd);
+	fd = open(core->data->so, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	close (fd);
+	fd = open(core->data->ea, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	close (fd);
+	fd = open(core->data->we, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	close (fd);
+	fd = open("./src/textures/door.xpm", O_RDONLY);
+	if (fd < 0)
+		return (1);
+	close (fd);
+	return (0);
+}
 
 int	ft_check_surroundings(t_core *core, char **map, int x, int y)
 {

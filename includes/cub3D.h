@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/03 09:26:11 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:50:24 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ typedef struct s_core
 void	init_data(t_core **core);
 
 //     error and quiting
-void	ft_quit(char *str);
+void	ft_quit(char *str, t_core *core);
 void	clean_data(t_core *core);
 void	ft_free_tab(char **array);
 
@@ -163,6 +163,7 @@ int		ft_retrieve_map(t_core *core, int fd, char *line);
 int		ft_map_validation(t_core *core);
 int		ft_check_outer_walls(t_core *core, char **map, int x, int y);
 int		ft_check_spaces(t_core *core, char **map, int x, int y);
+int		check_texture_file(t_core *core);
 void	ft_image_extention_check(t_core *core, char *file, char *ret);
 void	rgb_color_check(t_core *core, char *line, t_color color);
 

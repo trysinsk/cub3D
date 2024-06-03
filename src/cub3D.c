@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:06:13 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/03 10:03:00 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:52:03 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,14 @@ int	main(int argc, char **argv)
 	t_core	*core;
 
 	if (argc != 2)
-		ft_quit("wrong number of argument\n");
+		ft_quit("wrong number of argument\n", NULL);
 	if (ft_extention_check(argv[1]) != 0)
-		ft_quit("wrong file extention\n");
+		ft_quit("wrong file extention\n", NULL);
 	init_data(&core);
 	if (ft_parse_map(core, argv[1], 0) != 0)
-		ft_quit("unable to retrieve map info\n");
+		ft_quit("unable to retrieve map info\n", core);
 	if (ft_map_validation(core) != 0)
-		ft_quit("invalid map\n");
+		ft_quit("invalid map\n", core);
 	core->mlx = mlx_init();
 	if (core->mlx == NULL)
 		return (1);

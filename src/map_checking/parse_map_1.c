@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:53:29 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/22 17:24:23 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/06/03 10:45:34 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ int	ft_parse_map(t_core *core, char *file, int index)
 	if (ft_retrieve_map(core, fd, line) != 0)
 		return (1);
 	close (fd);
+	if (check_texture_file(core) == 1)
+		return (1);
 	return (0);
 }
