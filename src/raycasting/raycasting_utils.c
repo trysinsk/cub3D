@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 11:17:04 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/30 10:08:02 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/03 09:39:10 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	in_wall(double x, double y, t_core *core)
 
 	i = floor(x / TILE_SIZE);
 	j = floor(y / TILE_SIZE);
-	if (core->data->map[j][i] == '1' || core->data->map[j][i] == '2')
+	if (core->data->map[j][i] == '1' || core->data->map[j][i] == '2'
+		|| core->data->map[j][i] == '4')
 		return (1);
 	return (0);
 }

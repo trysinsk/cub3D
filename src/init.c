@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mevonuk <mevonuk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:18:12 by mevonuk           #+#    #+#             */
-/*   Updated: 2024/05/29 17:18:44 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/06/03 08:50:59 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init_player(t_core *core)
 	core->player->left_right = 0;
 	core->player->rotation = 0;
 	core->player->mouse_x = 0;
+	core->player->bomb_count = 0;
 }
 
 void	init_ray(t_core *core)

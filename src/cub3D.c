@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:06:13 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/29 14:04:45 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:03:00 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	init_textures(t_core *core)
 	core->img_w.data = (int *)mlx_get_data_addr(core->img_w.ptr,
 			&core->img_w.bpp, &core->img_w.size_l, &core->img_w.endian);
 	core->img_door.ptr = mlx_xpm_file_to_image(core->mlx,
-			"./src/textures/wood.xpm", &(core->img_door).width,
+			"./src/textures/door.xpm", &(core->img_door).width,
 			&core->img_door.height);
 	core->img_door.data = (int *)mlx_get_data_addr(core->img_door.ptr,
 			&core->img_door.bpp, &core->img_door.size_l,

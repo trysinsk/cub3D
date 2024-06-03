@@ -6,13 +6,13 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:05:24 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/30 10:15:43 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/03 09:40:30 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	is_in_wall(t_core *core, double pos, char c)
+int	is_in_wall(t_core *core, double pos, char c, char **map)
 {
 	double	new_pos;
 	int		x;
@@ -27,7 +27,7 @@ int	is_in_wall(t_core *core, double pos, char c)
 		new_pos = core->player->player_x + pos;
 		x = floor(new_pos / TILE_SIZE);
 		y = floor(core->player->player_y / TILE_SIZE);
-		if (core->data->map[y][x] == '1' || core->data->map[y][x] == '2')
+		if (map[y][x] == '1' || map[y][x] == '2' || map[y][x] == '4')
 			return (1);
 	}
 	else if (c == 'y')
@@ -35,7 +35,7 @@ int	is_in_wall(t_core *core, double pos, char c)
 		new_pos = core->player->player_y + pos;
 		x = floor(core->player->player_x / TILE_SIZE);
 		y = floor(new_pos / TILE_SIZE);
-		if (core->data->map[y][x] == '1' || core->data->map[y][x] == '2')
+		if (map[y][x] == '1' || map[y][x] == '2' || map[y][x] == '4')
 			return (1);
 	}
 	return (0);
@@ -57,7 +57,33 @@ void	move_player(t_core *core)
 		rotate_left(core);
 }
 
-void	toggle_door(t_core *core)
+void	interact_object(t_core *core, int new_pos_x, int new_pos_y)
+{
+	if (new_pos_x != floor(core->player->player_x / TILE_SIZE)
+		|| new_pos_y != floor(core->player->player_y / TILE_SIZE))
+	{
+		if (core->data->map[new_pos_y][new_pos_x] == '2')
+			core->data->map[new_pos_y][new_pos_x] = '3';
+		else if (core->data->map[new_pos_y][new_pos_x] == '3')
+			core->data->map[new_pos_y][new_pos_x] = '2';
+	}
+	if (core->data->map[new_pos_y][new_pos_x] == 'B')
+	{
+		core->player->bomb_count += 1;
+		core->data->map[new_pos_y][new_pos_x] = '0';
+		printf("you picked up a bomb\n");
+		printf("you have %d bomb\n", core->player->bomb_count);
+	}
+	if (core->data->map[new_pos_y][new_pos_x] == '4'
+		&& core->player->bomb_count > 0)
+	{
+		core->player->bomb_count -= 1;
+		core->data->map[new_pos_y][new_pos_x] = '0';
+		printf("you destroyed a fake wall\n");
+	}
+}
+
+void	interact(t_core *core)
 {
 	double	xd;
 	double	yd;
@@ -76,12 +102,5 @@ void	toggle_door(t_core *core)
 		yd += ILLUSION_BUFFER;
 	new_pos_x = floor((core->player->player_x + xd) / TILE_SIZE);
 	new_pos_y = floor((core->player->player_y + yd) / TILE_SIZE);
-	if (new_pos_x != floor(core->player->player_x / TILE_SIZE)
-		|| new_pos_y != floor(core->player->player_y / TILE_SIZE))
-	{
-		if (core->data->map[new_pos_y][new_pos_x] == '2')
-			core->data->map[new_pos_y][new_pos_x] = '3';
-		else if (core->data->map[new_pos_y][new_pos_x] == '3')
-			core->data->map[new_pos_y][new_pos_x] = '2';
-	}
+	interact_object(core, new_pos_x, new_pos_y);
 }

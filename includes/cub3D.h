@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/05/30 10:14:30 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/03 09:26:11 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define PLAYER_SPEED 2			// player speed
 # define PI 3.14159265
 # define WALL_BUFFER 10
-# define ILLUSION_BUFFER 32
+# define ILLUSION_BUFFER 24
 
 # define W		122
 # define A		113
@@ -78,6 +78,7 @@ typedef struct s_player
 	int		left_right;
 	int		up_down;
 	int		mouse_x;
+	int		bomb_count;
 }	t_player;
 
 typedef struct s_ray
@@ -180,7 +181,7 @@ void	toggle_map(t_core *core);
 
 //		moves
 int		stop_flag(int keycode, t_core *core);
-void	toggle_door(t_core *core);
+void	interact(t_core *core);
 void	move_player(t_core *core);
 void	move_up(t_core *core);
 void	move_down(t_core *core);
@@ -188,6 +189,6 @@ void	move_right(t_core *core);
 void	move_left(t_core *core);
 void	rotate_left(t_core *core);
 void	rotate_right(t_core *core);
-int		is_in_wall(t_core *core, double pos, char c);
+int		is_in_wall(t_core *core, double pos, char c, char **map);
 
 #endif

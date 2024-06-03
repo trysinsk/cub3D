@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:17:16 by mevonuk           #+#    #+#             */
-/*   Updated: 2024/05/30 09:52:40 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/03 08:53:22 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	close_win(int keycode, t_core *core)
 	if (keycode == XK_Escape)
 		on_destroy(core);
 	if (keycode == 32)
-		toggle_door(core);
+		interact(core);
 	if (keycode == W || keycode == 119 || keycode == 65362)
 		core->player->up_down = 1;
 	if (keycode == S || keycode == 65364)

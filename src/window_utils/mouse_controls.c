@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_controls.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mevonuk <mevonuk@student.42.fr>            +#+  +:+       +#+        */
+/*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:33:37 by mevonuk           #+#    #+#             */
-/*   Updated: 2024/05/30 14:34:05 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/06/03 08:54:05 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	mouse_on(int button, int x, int y, t_core *core)
 	if (button == MOUSE_BTN_R)
 		core->player->rotation = 1;
 	if (button == MOUSE_WHEEL_BTN)
-		toggle_door(core);
+		interact(core);
 	else if (button == MOUSE_WHEEL_UP)
 		move_up(core);
 	else if (button == MOUSE_WHEEL_DOWN)
