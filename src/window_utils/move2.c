@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:05:24 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/03 13:18:02 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:23:01 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,8 @@ void	interact(t_core *core)
 
 	xd = cos(core->player->angle) * PLAYER_SPEED;
 	yd = -sin(core->player->angle) * PLAYER_SPEED;
-	if (xd < 0)
-		xd -= ILLUSION_BUFFER;
-	else
-		xd += ILLUSION_BUFFER;
-	if (yd < 0)
-		yd -= ILLUSION_BUFFER;
-	else
-		yd += ILLUSION_BUFFER;
+	xd *= ILLUSION_BUFFER;
+	yd *= ILLUSION_BUFFER;
 	new_pos_x = floor((core->player->player_x + xd) / TILE_SIZE);
 	new_pos_y = floor((core->player->player_y + yd) / TILE_SIZE);
 	interact_object(core, new_pos_x, new_pos_y);
