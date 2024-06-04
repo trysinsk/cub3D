@@ -124,10 +124,6 @@ typedef struct s_sprite
 	double	x;
 	double	y;
 	t_img	img;
-	double	planex;
-	double	planey;
-	double	dirx;
-	double	diry;
 } t_sprite;
 
 typedef struct s_core

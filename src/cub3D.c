@@ -89,9 +89,6 @@ void	draw_sprite(t_core *core)
 {
 	double	sx;
 	double	sy;
-	double	invDet;
-	double	transformx;
-	double	transformy;
 	int		spritesx;
 	int		spriteh;
 	int		xs;
@@ -103,58 +100,52 @@ void	draw_sprite(t_core *core)
 	int		color;
 	int		counter;
 	double	d_to_p;
+	double	angbomb;
 
 	d_to_p = S_W / 2 / tan(FOV * PI / 180 / 2);
-	
-	core->bomb.dirx = d_to_p * cos(core->player->angle);
-	core->bomb.diry = -d_to_p * sin(core->player->angle);
-	core->bomb.planex = S_W / 2 * cos(normalize_angle(core->player->angle - FOV * PI / 180));
-	core->bomb.planey = -S_W / 2 * sin(normalize_angle(core->player->angle - FOV * PI / 180));
-
 	sx = core->bomb.x - core->player->player_x;
 	sy = core->bomb.y - core->player->player_y;
 	printf("bomb at %f, %f with respect to player\n", sx, sy);
-	printf("angle to bomb with respect to player view= %f\n", (core->player->angle - atan((double)-sy/(double)sx)) * 180 / PI);
-	invDet = 1.0 / (core->bomb.planex * core->bomb.diry - core->bomb.dirx * core->bomb.planey);
-	//printf("dx %f, dy %f, px %f, py %f\n", core->bomb.dirx,core->bomb.diry, core->bomb.planex, core->bomb.planey);
-	//printf("invDet: %f\n", invDet);
-	transformx = invDet * (core->bomb.diry * sx - core->bomb.dirx * sy);
-	transformy = invDet * (-core->bomb.planey * sx + core->bomb.planex * sy);
-	printf("tx: %f, ty: %f\n", transformx, transformy);
-	spritesx = (int)((S_W / 2) * (1 + transformx / transformy));
-	spriteh = TILE_SIZE / distance(sx, sy) * d_to_p;
-	printf("ssx: %d, sh %d\n", spritesx, spriteh);
-	ys = -spriteh / 2 + S_H / 2;
-	if (ys < 0)
-		ys = 0;
-	ye = spriteh / 2 + S_H / 2;
-	if (ye > S_H)
-		ye = S_H;
-	xs = -spriteh / 2 + spritesx;
-	if (xs < 0)
-		xs = 0;
-	xe = spriteh / 2 + spritesx;
-	if (xe > S_W)
-		xe = S_W;
-	i = xs;
-	printf("i: %d %d, j: %d %d\n", xs, xe, ys, ye);
-	while (i < xe)
+	angbomb = fabs(core->player->angle - atan((double)-sy/(double)sx)) * 180 / PI;
+	if (angbomb > 180)
+		angbomb = angbomb - 360;
+	printf("angle to bomb with respect to player view= %f\n", angbomb);
+	if (fabs(angbomb) < FOV / 2)
 	{
-		//printf("transy: %f, i %d, z: %f\n", transformy, i, core->bomb.zbuf[i]);
-		if (transformy > 0 && i < S_W && S_H * transformy < core->bomb.zbuf[i])
+		spritesx = S_W / 2 - distance(sx, sy) * sin(angbomb);
+		spriteh = TILE_SIZE / distance(sx, sy) * d_to_p;
+		printf("ssx: %d, sh %d\n", spritesx, spriteh);
+		ys = -spriteh / 2 + S_H / 2;
+		if (ys < 0)
+			ys = 0;
+		ye = spriteh / 2 + S_H / 2;
+		if (ye > S_H)
+			ye = S_H;
+		xs = -spriteh / 2 + spritesx;
+		if (xs < 0)
+			xs = 0;
+		xe = spriteh / 2 + spritesx;
+		if (xe > S_W)
+			xe = S_W;
+		i = xs;
+		printf("i: %d %d, j: %d %d\n", xs, xe, ys, ye);
+		while (i < xe)
 		{
-			j = ys;
-			while (j < ye)
+			if (distance(sx, sy) < core->bomb.zbuf[i])
 			{
-				counter = (j * core->bomb.img.size_l
-					+ (int) sx % TILE_SIZE * (core->bomb.img.bpp / 8)) / 4;
-				counter = 1;
-				color = core->bomb.img.data[counter];
-				img_pix_put(core, i, j, color);
-				j++;
+				j = ys;
+				while (j < ye)
+				{
+					counter = (j * core->bomb.img.size_l
+						+ (int) sx % TILE_SIZE * (core->bomb.img.bpp / 8)) / 4;
+					counter = 1;
+					color = core->bomb.img.data[counter];
+					img_pix_put(core, i, j, color);
+					j++;
+				}
 			}
+			i++;
 		}
-		i++;
 	}
 }
 
