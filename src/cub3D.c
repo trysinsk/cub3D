@@ -61,6 +61,115 @@ void	init_textures(t_core *core)
 			&core->img_door.endian);
 }
 
+int	find_sprite(t_core *core)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	while (i < core->data->width - 1)
+	{
+		j = 0;
+		while (j < core->data->height)
+		{
+			if (core->data->map[j][i] == 'B')
+			{
+				core->bomb.x = i * TILE_SIZE + TILE_SIZE / 2;
+				core->bomb.y = j * TILE_SIZE + TILE_SIZE / 2;
+				return (1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+void	draw_sprite(t_core *core)
+{
+	double	sx;
+	double	sy;
+	double	invDet;
+	double	transformx;
+	double	transformy;
+	int		spritesx;
+	int		spriteh;
+	int		xs;
+	int		ys;
+	int		xe;
+	int		ye;
+	int		i;
+	int		j;
+	int		color;
+	int		counter;
+	double	d_to_p;
+
+	d_to_p = S_W / 2 / tan(FOV * PI / 180 / 2);
+	
+	core->bomb.dirx = d_to_p * cos(core->player->angle);
+	core->bomb.diry = -d_to_p * sin(core->player->angle);
+	core->bomb.planex = S_W / 2 * cos(normalize_angle(core->player->angle - FOV * PI / 180));
+	core->bomb.planey = -S_W / 2 * sin(normalize_angle(core->player->angle - FOV * PI / 180));
+
+	sx = core->bomb.x - core->player->player_x;
+	sy = core->bomb.y - core->player->player_y;
+	printf("bomb at %f, %f with respect to player\n", sx, sy);
+	printf("angle to bomb with respect to player view= %f\n", (core->player->angle - atan((double)-sy/(double)sx)) * 180 / PI);
+	invDet = 1.0 / (core->bomb.planex * core->bomb.diry - core->bomb.dirx * core->bomb.planey);
+	//printf("dx %f, dy %f, px %f, py %f\n", core->bomb.dirx,core->bomb.diry, core->bomb.planex, core->bomb.planey);
+	//printf("invDet: %f\n", invDet);
+	transformx = invDet * (core->bomb.diry * sx - core->bomb.dirx * sy);
+	transformy = invDet * (-core->bomb.planey * sx + core->bomb.planex * sy);
+	printf("tx: %f, ty: %f\n", transformx, transformy);
+	spritesx = (int)((S_W / 2) * (1 + transformx / transformy));
+	spriteh = TILE_SIZE / distance(sx, sy) * d_to_p;
+	printf("ssx: %d, sh %d\n", spritesx, spriteh);
+	ys = -spriteh / 2 + S_H / 2;
+	if (ys < 0)
+		ys = 0;
+	ye = spriteh / 2 + S_H / 2;
+	if (ye > S_H)
+		ye = S_H;
+	xs = -spriteh / 2 + spritesx;
+	if (xs < 0)
+		xs = 0;
+	xe = spriteh / 2 + spritesx;
+	if (xe > S_W)
+		xe = S_W;
+	i = xs;
+	printf("i: %d %d, j: %d %d\n", xs, xe, ys, ye);
+	while (i < xe)
+	{
+		//printf("transy: %f, i %d, z: %f\n", transformy, i, core->bomb.zbuf[i]);
+		if (transformy > 0 && i < S_W && S_H * transformy < core->bomb.zbuf[i])
+		{
+			j = ys;
+			while (j < ye)
+			{
+				counter = (j * core->bomb.img.size_l
+					+ (int) sx % TILE_SIZE * (core->bomb.img.bpp / 8)) / 4;
+				counter = 1;
+				color = core->bomb.img.data[counter];
+				img_pix_put(core, i, j, color);
+				j++;
+			}
+		}
+		i++;
+	}
+}
+
+void	sprites(t_core *core)
+{
+	core->bomb.img.ptr = mlx_xpm_file_to_image(core->mlx,
+			"./src/textures/bomb.xpm", &(core->bomb.img).width,
+			&core->bomb.img.height);
+	core->bomb.img.data = (int *)mlx_get_data_addr(core->bomb.img.ptr,
+			&core->bomb.img.bpp, &core->bomb.img.size_l,
+			&core->bomb.img.endian);
+	if (find_sprite(core) == 1)
+		draw_sprite(core);
+}
+
 int	make_image(t_core *core)
 {
 	core->img = mlx_new_image(core->mlx, S_W, S_H);
@@ -69,6 +178,7 @@ int	make_image(t_core *core)
 	init_textures(core);
 	cieling_floor(core);
 	raycast_loop(core);
+	sprites(core);
 	if (core->map == 1)
 		toggle_map(core);
 	mlx_put_image_to_window(core->mlx, core->win, core->img, 0, 0);
@@ -78,6 +188,7 @@ int	make_image(t_core *core)
 	mlx_destroy_image(core->mlx, core->img_e.ptr);
 	mlx_destroy_image(core->mlx, core->img_w.ptr);
 	mlx_destroy_image(core->mlx, core->img_door.ptr);
+	mlx_destroy_image(core->mlx, core->bomb.img.ptr);
 	move_player(core);
 	return (0);
 }

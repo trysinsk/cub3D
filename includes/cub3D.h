@@ -118,6 +118,18 @@ typedef struct s_data
 	t_color	c;
 }	t_data;
 
+typedef struct s_sprite
+{
+	double	zbuf[S_W];
+	double	x;
+	double	y;
+	t_img	img;
+	double	planex;
+	double	planey;
+	double	dirx;
+	double	diry;
+} t_sprite;
+
 typedef struct s_core
 {
 	void		*mlx;
@@ -136,6 +148,7 @@ typedef struct s_core
 	t_player	*player;
 	t_ray		*ray;
 	t_data		*data;
+	t_sprite	bomb;
 }	t_core;
 
 void	init_data(t_core **core);
