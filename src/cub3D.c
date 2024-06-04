@@ -101,20 +101,51 @@ void	draw_sprite(t_core *core)
 	int		counter;
 	double	d_to_p;
 	double	angbomb;
+	double	ds;
+	double	deltax;
+	double	deltay;
+	double	planex;
+	double	planey;
+	double	invDet;
+	double	tx;
+	double	ty;
 
 	d_to_p = S_W / 2 / tan(FOV * PI / 180 / 2);
 	sx = core->bomb.x - core->player->player_x;
 	sy = core->bomb.y - core->player->player_y;
+	
+	deltax = cos(core->player->angle);
+	deltay = -sin(core->player->angle);
+	printf("player angle: %f deltax: %f deltay: %f dis: %f\n", core->player->angle *180/PI, deltax, deltay, deltax*deltax + deltay*deltay);
+
+	planex = deltax * cos(PI / 2) - deltay * sin(PI / 2);
+	planey = deltax * sin(PI / 2) + deltay * cos(PI / 2);
+	printf("planex: %f planey: %f dis: %f\n", planex, planey, planex*planex + planey*planey);
+
+	invDet = 1.0 / (planex * deltay - deltax * planey);
+	printf("invDet: %f\n", invDet);
+
+	tx = invDet * (deltay * sx - deltay * sy);
+	ty = invDet * (-planey * sx + planex * sy);
+	printf("tx %f ty %f\n", tx, ty);
+
+	ds = distance(sx, sy);
 	printf("bomb at %f, %f with respect to player\n", sx, sy);
 	angbomb = fabs(core->player->angle - atan((double)-sy/(double)sx)) * 180 / PI;
 	if (angbomb > 180)
 		angbomb = angbomb - 360;
 	printf("angle to bomb with respect to player view= %f\n", angbomb);
-	if (fabs(angbomb) < FOV / 2)
+	if (fabs(angbomb) < 45)
 	{
-		spritesx = S_W / 2 - distance(sx, sy) * sin(angbomb);
-		spriteh = TILE_SIZE / distance(sx, sy) * d_to_p;
-		printf("ssx: %d, sh %d\n", spritesx, spriteh);
+
+		spritesx = (int)(S_W / 2 * (1.0 + tx / ty)); //S_W / 2 - ds * sin(angbomb * PI / 180);
+		printf("1-tx/ty: %f\n", 1.0 + tx / ty);
+
+		spriteh = abs((int)(S_H * TILE_SIZE / ty)); //TILE_SIZE / distance(sx, sy) * d_to_p;
+		printf("S_W: %d, ssx: %d, sh %d\n", S_W, spritesx, spriteh);
+
+		spriteh = spriteh * cos(angbomb * PI / 180);
+
 		ys = -spriteh / 2 + S_H / 2;
 		if (ys < 0)
 			ys = 0;

@@ -34,7 +34,7 @@
 # define MAX_TILE 100			// maximum size of map
 # define TILE_SIZE 64			// tile size
 # define FOV 60					// field of view
-# define ROTATION_SPEED 0.02	// rotation speed
+# define ROTATION_SPEED 0.002	// rotation speed
 # define PLAYER_SPEED 2			// player speed
 # define PI 3.14159265
 # define WALL_BUFFER 10
