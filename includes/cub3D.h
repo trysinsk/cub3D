@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/05 11:04:06 by mevonuk          ###   ########.fr       */
+/*   Updated: 2024/06/05 12:12:31 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@
 
 # define S_W 620				// screen width
 # define S_H 400				// screen height
-# define MAX_TILE 100			// maximum size of map
+# define MAX_TILE 10			// maximum size of map
 # define TILE_SIZE 64			// tile size
 # define FOV 60					// field of view
-# define ROTATION_SPEED 0.02	// rotation speed
+# define ROTATION_SPEED 0.025	// rotation speed
 # define PLAYER_SPEED 2			// player speed
 # define PI 3.14159265
 # define WALL_BUFFER 10
@@ -176,6 +176,7 @@ int		ft_map_validation(t_core *core);
 int		ft_check_outer_walls(t_core *core, char **map, int x, int y);
 int		ft_check_spaces(t_core *core, char **map, int x, int y);
 int		check_texture_file(t_core *core);
+int		check_special_texture(void);
 void	ft_image_extention_check(t_core *core, char *file, char *ret);
 void	rgb_color_check(t_core *core, char *line, t_color color);
 

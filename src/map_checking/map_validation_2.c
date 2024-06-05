@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:12:51 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/03 11:41:06 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:57:12 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,29 @@ int	check_texture_file(t_core *core)
 		return (1);
 	close (fd);
 	fd = open(core->data->we, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	close (fd);
+	return (0);
+}
+
+int	check_special_texture(void)
+{
+	int	fd;
+
+	fd = open("./src/textures/bomb_full.xpm", O_RDONLY);
+	if (fd < 0)
+		return (1);
+	close (fd);
+	fd = open("./src/textures/bomb_empty.xpm", O_RDONLY);
+	if (fd < 0)
+		return (1);
+	close (fd);
+	fd = open("./src/textures/crumbling_peace.xpm", O_RDONLY);
+	if (fd < 0)
+		return (1);
+	close (fd);
+	fd = open("./src/textures/exit.xpm", O_RDONLY);
 	if (fd < 0)
 		return (1);
 	close (fd);
