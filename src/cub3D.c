@@ -137,7 +137,7 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(core->mlx, make_image, core);
 	mlx_hook(core->win, 4, 1L << 2, mouse_on, core);
 	mlx_hook(core->win, 5, 1L << 3, mouse_off, core);
-	mlx_hook(core->win, 2, 1L << 0, close_win, core);
+	mlx_hook(core->win, 2, 1L << 0, key_control, core);
 	mlx_hook(core->win, 3, 1L << 1, stop_flag, core);
 	mlx_hook(core->win, 6, 1L << 6, mouse_move, core);
 	mlx_hook(core->win, DestroyNotify, StructureNotifyMask, &on_destroy, core);

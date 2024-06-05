@@ -30,26 +30,6 @@ void	img_pix_put(t_core *img, int x, int y, int color)
 	}
 }
 
-// fill the image file with the colored pixels based on the chosen 
-void	fill_image(t_core vars)
-{
-	int		i;
-	int		j;
-	int		color;
-
-	i = -1;
-	while (i++ < S_W)
-	{
-		j = -1;
-		while (j++ < S_H)
-		{
-			color = create_trgb(1, vars.data->f.r,
-					vars.data->f.g, vars.data->f.b);
-			img_pix_put(&vars, i, j, color);
-		}
-	}
-}
-
 // destroy window and display and free data with closing window with mouse
 int	on_destroy(t_core *data)
 {
@@ -69,7 +49,7 @@ int	on_destroy(t_core *data)
 }
 
 // close window and free memory with ESC key
-int	close_win(int keycode, t_core *core)
+int	key_control(int keycode, t_core *core)
 {
 	if (keycode == XK_Escape)
 		on_destroy(core);
