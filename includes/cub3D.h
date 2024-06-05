@@ -34,11 +34,11 @@
 # define MAX_TILE 100			// maximum size of map
 # define TILE_SIZE 64			// tile size
 # define FOV 60					// field of view
-# define ROTATION_SPEED 0.002	// rotation speed
+# define ROTATION_SPEED 0.02	// rotation speed
 # define PLAYER_SPEED 2			// player speed
 # define PI 3.14159265
 # define WALL_BUFFER 10
-# define ILLUSION_BUFFER 40
+# define ILLUSION_BUFFER 30
 
 # define W		122
 # define A		113
@@ -118,13 +118,15 @@ typedef struct s_data
 	t_color	c;
 }	t_data;
 
-typedef struct s_sprite
+typedef struct s_bomb
 {
 	double	zbuf[S_W];
 	double	x;
 	double	y;
-	t_img	img;
-} t_sprite;
+	t_img	full;
+	t_img	empty;
+	t_img	wall;
+} t_bomb;
 
 typedef struct s_core
 {
@@ -144,7 +146,7 @@ typedef struct s_core
 	t_player	*player;
 	t_ray		*ray;
 	t_data		*data;
-	t_sprite	bomb;
+	t_bomb		bomb;
 }	t_core;
 
 void	init_data(t_core **core);

@@ -61,135 +61,26 @@ void	init_textures(t_core *core)
 			&core->img_door.endian);
 }
 
-int	find_sprite(t_core *core)
+void	init_bomb(t_core *core)
 {
-	int	i;
-	int	j;
-	
-	i = 0;
-	while (i < core->data->width - 1)
-	{
-		j = 0;
-		while (j < core->data->height)
-		{
-			if (core->data->map[j][i] == 'B')
-			{
-				core->bomb.x = i * TILE_SIZE + TILE_SIZE / 2;
-				core->bomb.y = j * TILE_SIZE + TILE_SIZE / 2;
-				return (1);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-void	draw_sprite(t_core *core)
-{
-	double	sx;
-	double	sy;
-	int		spritesx;
-	int		spriteh;
-	int		xs;
-	int		ys;
-	int		xe;
-	int		ye;
-	int		i;
-	int		j;
-	int		color;
-	int		counter;
-	double	d_to_p;
-	double	angbomb;
-	double	ds;
-	double	deltax;
-	double	deltay;
-	double	planex;
-	double	planey;
-	double	invDet;
-	double	tx;
-	double	ty;
-
-	d_to_p = S_W / 2 / tan(FOV * PI / 180 / 2);
-	sx = core->bomb.x - core->player->player_x;
-	sy = core->bomb.y - core->player->player_y;
-	
-	deltax = cos(core->player->angle);
-	deltay = -sin(core->player->angle);
-	printf("player angle: %f deltax: %f deltay: %f dis: %f\n", core->player->angle *180/PI, deltax, deltay, deltax*deltax + deltay*deltay);
-
-	planex = deltax * cos(PI / 2) - deltay * sin(PI / 2);
-	planey = deltax * sin(PI / 2) + deltay * cos(PI / 2);
-	printf("planex: %f planey: %f dis: %f\n", planex, planey, planex*planex + planey*planey);
-
-	invDet = 1.0 / (planex * deltay - deltax * planey);
-	printf("invDet: %f\n", invDet);
-
-	tx = invDet * (deltay * sx - deltay * sy);
-	ty = invDet * (-planey * sx + planex * sy);
-	printf("tx %f ty %f\n", tx, ty);
-
-	ds = distance(sx, sy);
-	printf("bomb at %f, %f with respect to player\n", sx, sy);
-	angbomb = fabs(core->player->angle - atan((double)-sy/(double)sx)) * 180 / PI;
-	if (angbomb > 180)
-		angbomb = angbomb - 360;
-	printf("angle to bomb with respect to player view= %f\n", angbomb);
-	if (fabs(angbomb) < 45)
-	{
-
-		spritesx = (int)(S_W / 2 * (1.0 + tx / ty)); //S_W / 2 - ds * sin(angbomb * PI / 180);
-		printf("1-tx/ty: %f\n", 1.0 + tx / ty);
-
-		spriteh = abs((int)(S_H * TILE_SIZE / ty)); //TILE_SIZE / distance(sx, sy) * d_to_p;
-		printf("S_W: %d, ssx: %d, sh %d\n", S_W, spritesx, spriteh);
-
-		spriteh = spriteh * cos(angbomb * PI / 180);
-
-		ys = -spriteh / 2 + S_H / 2;
-		if (ys < 0)
-			ys = 0;
-		ye = spriteh / 2 + S_H / 2;
-		if (ye > S_H)
-			ye = S_H;
-		xs = -spriteh / 2 + spritesx;
-		if (xs < 0)
-			xs = 0;
-		xe = spriteh / 2 + spritesx;
-		if (xe > S_W)
-			xe = S_W;
-		i = xs;
-		printf("i: %d %d, j: %d %d\n", xs, xe, ys, ye);
-		while (i < xe)
-		{
-			if (distance(sx, sy) < core->bomb.zbuf[i])
-			{
-				j = ys;
-				while (j < ye)
-				{
-					counter = (j * core->bomb.img.size_l
-						+ (int) sx % TILE_SIZE * (core->bomb.img.bpp / 8)) / 4;
-					counter = 1;
-					color = core->bomb.img.data[counter];
-					img_pix_put(core, i, j, color);
-					j++;
-				}
-			}
-			i++;
-		}
-	}
-}
-
-void	sprites(t_core *core)
-{
-	core->bomb.img.ptr = mlx_xpm_file_to_image(core->mlx,
-			"./src/textures/bomb.xpm", &(core->bomb.img).width,
-			&core->bomb.img.height);
-	core->bomb.img.data = (int *)mlx_get_data_addr(core->bomb.img.ptr,
-			&core->bomb.img.bpp, &core->bomb.img.size_l,
-			&core->bomb.img.endian);
-	if (find_sprite(core) == 1)
-		draw_sprite(core);
+	core->bomb.full.ptr = mlx_xpm_file_to_image(core->mlx,
+			"./src/textures/bomb_full.xpm", &(core->bomb.full).width,
+			&core->bomb.full.height);
+	core->bomb.full.data = (int *)mlx_get_data_addr(core->bomb.full.ptr,
+			&core->bomb.full.bpp, &core->bomb.full.size_l,
+			&core->bomb.full.endian);
+	core->bomb.empty.ptr = mlx_xpm_file_to_image(core->mlx,
+			"./src/textures/bomb_empty.xpm", &(core->bomb.empty).width,
+			&core->bomb.empty.height);
+	core->bomb.empty.data = (int *)mlx_get_data_addr(core->bomb.empty.ptr,
+			&core->bomb.empty.bpp, &core->bomb.empty.size_l,
+			&core->bomb.empty.endian);
+	core->bomb.wall.ptr = mlx_xpm_file_to_image(core->mlx,
+			"./src/textures/bomb_wall.xpm", &(core->bomb.wall).width,
+			&core->bomb.wall.height);
+	core->bomb.wall.data = (int *)mlx_get_data_addr(core->bomb.wall.ptr,
+			&core->bomb.wall.bpp, &core->bomb.wall.size_l,
+			&core->bomb.wall.endian);
 }
 
 int	make_image(t_core *core)
@@ -198,9 +89,9 @@ int	make_image(t_core *core)
 	core->addr = mlx_get_data_addr(core->img, &core->bpp,
 			&core->line_len, &core->endian);
 	init_textures(core);
+	init_bomb(core);
 	cieling_floor(core);
 	raycast_loop(core);
-	sprites(core);
 	if (core->map == 1)
 		toggle_map(core);
 	mlx_put_image_to_window(core->mlx, core->win, core->img, 0, 0);
@@ -210,7 +101,9 @@ int	make_image(t_core *core)
 	mlx_destroy_image(core->mlx, core->img_e.ptr);
 	mlx_destroy_image(core->mlx, core->img_w.ptr);
 	mlx_destroy_image(core->mlx, core->img_door.ptr);
-	mlx_destroy_image(core->mlx, core->bomb.img.ptr);
+	mlx_destroy_image(core->mlx, core->bomb.full.ptr);
+	mlx_destroy_image(core->mlx, core->bomb.empty.ptr);
+	mlx_destroy_image(core->mlx, core->bomb.wall.ptr);
 	move_player(core);
 	return (0);
 }

@@ -96,7 +96,6 @@ void	raycast_loop(t_core *core)
 			core->ray->flag = 1;
 		}
 		dist = dist * cos(core->ray->angle - core->player->angle);
-		core->bomb.zbuf[i] = dist;
 		insert_column(core, i, height_of_wall(dist), core->ray->angle);
 		core->ray->angle -= delta_r;
 	}

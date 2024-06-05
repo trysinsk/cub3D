@@ -24,6 +24,8 @@ int	color_2d_map(t_core *core, int count_h, int count_w, int scale)
 		return (create_trgb(1, 120, 120, 120));
 	if (core->data->map[count_h / scale][count_w / scale] == 'B')
 		return (create_trgb(1, 255, 255, 0));
+	if (core->data->map[count_h / scale][count_w / scale] == 'X')
+		return (create_trgb(1, 1, 255, 0));
 	return (create_trgb(1, 0, 0, 0));
 }
 

@@ -53,6 +53,12 @@ int	in_door(t_core *core)
 	}
 	if (core->data->map[j][i] == '2')
 		return (1);
+	if (core->data->map[j][i] == 'B')
+		return (2);
+	//if (core->data->map[j][i] == 'X')
+	//	return (3);
+	if (core->data->map[j][i] == '4')
+		return (4);
 	return (0);
 }
 
@@ -63,6 +69,12 @@ int	get_pixel(t_core *core, double angle, double c2)
 	counter = get_counter(core, c2);
 	if (in_door(core) == 1)
 		return (core->img_door.data[counter]);
+	if (in_door(core) == 2)
+		return (core->bomb.full.data[counter]);
+	if (in_door(core) == 3)
+		return (core->bomb.empty.data[counter]);
+	if (in_door(core) == 4)
+		return (core->bomb.wall.data[counter]);
 	if (core->ray->flag == 1)
 	{
 		if (angle > PI / 2 && angle < 3 * PI / 2)
