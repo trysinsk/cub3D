@@ -41,6 +41,16 @@ int	allocate_map(t_core *core)
 	return (0);
 }
 
+int	size_check(char *line, int i)
+{
+	if ((int)ft_strlen(line) > MAX_TILE || i >= MAX_TILE)
+	{
+		free (line);
+		return (1);
+	}
+	return (0);
+}
+
 int	ft_retrieve_map(t_core *core, int fd, char *line)
 {
 	int	i;
@@ -51,7 +61,7 @@ int	ft_retrieve_map(t_core *core, int fd, char *line)
 	core->data->width = (int)ft_strlen(line);
 	while (line != NULL)
 	{
-		if (i >= MAX_TILE)
+		if (size_check(line, i))
 			return (1);
 		if (core->data->width < (int)ft_strlen(line))
 			core->data->width = (int)ft_strlen(line);

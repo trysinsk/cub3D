@@ -26,7 +26,7 @@ int	get_counter(t_core *core, double c2)
 	return (counter);
 }
 
-int	in_door(t_core *core)
+int	in_special(t_core *core)
 {
 	int	i;
 	int	j;
@@ -56,15 +56,15 @@ int	in_door(t_core *core)
 
 int	get_special_texture(t_core *core, int counter)
 {
-	if (in_door(core) == 1)
+	if (in_special(core) == 1)
 		return (core->img_door.data[counter]);
-	if (in_door(core) == 2)
+	if (in_special(core) == 2)
 		return (core->bomb.full.data[counter]);
-	if (in_door(core) == 3)
+	if (in_special(core) == 3)
 		return (core->bomb.empty.data[counter]);
-	if (in_door(core) == 4)
+	if (in_special(core) == 4)
 		return (core->bomb.wall.data[counter]);
-	if (in_door(core) == 5)
+	if (in_special(core) == 5)
 		return (core->bomb.t.data[counter]);
 	return (core->bomb.t.data[counter]);
 }
@@ -74,7 +74,7 @@ int	get_pixel(t_core *core, double angle, double c2)
 	int	counter;
 
 	counter = get_counter(core, c2);
-	if (in_door(core) != 0)
+	if (in_special(core) != 0)
 		return (get_special_texture(core, counter));
 	if (core->ray->flag == 1)
 	{

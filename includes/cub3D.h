@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/05 12:12:31 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:13:25 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,9 +159,8 @@ void	ft_free_tab(char **array);
 
 // window tools
 int		on_destroy(t_core *data);
-int		close_win(int keycode, t_core *core);
+int		key_control(int keycode, t_core *core);
 void	img_pix_put(t_core *img, int x, int y, int color);
-void	fill_image(t_core vars);
 void	img_pix_put(t_core *img, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
 int		mouse_on(int button, int x, int y, t_core *core);
@@ -188,7 +187,6 @@ void	set_ray_direction(t_core *core, double angle);
 int		in_bounds(double x, double y, t_core *core);
 double	distance(double x, double y);
 int		in_wall(double x, double y, t_core *core);
-int		height_of_wall(double dist);
 
 //2D map
 void	toggle_map(t_core *core);
