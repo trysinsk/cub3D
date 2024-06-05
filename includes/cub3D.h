@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/04 13:24:32 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:04:06 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,8 @@ typedef struct s_bomb
 	t_img	full;
 	t_img	empty;
 	t_img	wall;
-} t_bomb;
+	t_img	t;
+}	t_bomb;
 
 typedef struct s_core
 {

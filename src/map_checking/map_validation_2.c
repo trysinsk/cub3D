@@ -32,7 +32,7 @@ int	check_texture_file(t_core *core)
 	if (fd < 0)
 		return (1);
 	close (fd);
-	fd = open("./src/textures/door.xpm", O_RDONLY);
+	fd = open("./src/textures/door_closed.xpm", O_RDONLY);
 	if (fd < 0)
 		return (1);
 	close (fd);

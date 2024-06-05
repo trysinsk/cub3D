@@ -21,7 +21,8 @@ int	in_wall(double x, double y, t_core *core)
 	i = floor(x / TILE_SIZE);
 	j = floor(y / TILE_SIZE);
 	if (core->data->map[j][i] == '1' || core->data->map[j][i] == '2'
-		|| core->data->map[j][i] == '4' || core->data->map[j][i] == 'B' || core->data->map[j][i] == 'X')
+		|| core->data->map[j][i] == '4' || core->data->map[j][i] == 'B'
+		|| core->data->map[j][i] == 'X' || core->data->map[j][i] == 'T')
 		return (1);
 	return (0);
 }

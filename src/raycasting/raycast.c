@@ -12,6 +12,16 @@
 
 #include "cub3D.h"
 
+int	height_of_wall(double dist)
+{
+	double	height;
+	double	d_to_p;
+
+	d_to_p = S_W / 2 / tan(FOV * PI / 180 / 2);
+	height = d_to_p * TILE_SIZE / dist;
+	return ((int)(height));
+}
+
 // calculate the horizontal intercept (moiving up or down)
 double	horizontal_inter(t_core *core, double angle)
 {

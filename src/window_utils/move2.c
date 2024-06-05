@@ -6,11 +6,19 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:05:24 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/04 13:23:01 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:13:17 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	valid_wall(char **map, int y, int x)
+{
+	if (map[y][x] == '1' || map[y][x] == '2' || map[y][x] == '4'
+		|| map[y][x] == 'B' || map[y][x] == 'X' || map[y][x] == 'T')
+		return (1);
+	return (0);
+}
 
 int	is_in_wall(t_core *core, double pos, char c, char **map)
 {
@@ -27,7 +35,7 @@ int	is_in_wall(t_core *core, double pos, char c, char **map)
 		new_pos = core->player->player_x + pos;
 		x = floor(new_pos / TILE_SIZE);
 		y = floor(core->player->player_y / TILE_SIZE);
-		if (map[y][x] == '1' || map[y][x] == '2' || map[y][x] == '4' || map[y][x] == 'B'|| map[y][x] == 'X')
+		if (valid_wall(map, y, x))
 			return (1);
 	}
 	else if (c == 'y')
@@ -35,7 +43,7 @@ int	is_in_wall(t_core *core, double pos, char c, char **map)
 		new_pos = core->player->player_y + pos;
 		x = floor(core->player->player_x / TILE_SIZE);
 		y = floor(new_pos / TILE_SIZE);
-		if (map[y][x] == '1' || map[y][x] == '2' || map[y][x] == '4' || map[y][x] == 'B' || map[y][x] == 'X')
+		if (valid_wall(map, y, x))
 			return (1);
 	}
 	return (0);
@@ -81,6 +89,8 @@ void	interact_object(t_core *core, int new_pos_x, int new_pos_y)
 		core->data->map[new_pos_y][new_pos_x] = '0';
 		printf("you destroyed a fake wall\n");
 	}
+	if (core->data->map[new_pos_y][new_pos_x] == 'T')
+		on_destroy(core);
 }
 
 void	interact(t_core *core)

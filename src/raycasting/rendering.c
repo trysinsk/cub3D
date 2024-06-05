@@ -12,16 +12,6 @@
 
 #include "cub3D.h"
 
-int	height_of_wall(double dist)
-{
-	double	height;
-	double	d_to_p;
-
-	d_to_p = S_W / 2 / tan(FOV * PI / 180 / 2);
-	height = d_to_p * TILE_SIZE / dist;
-	return ((int)(height));
-}
-
 int	get_counter(t_core *core, double c2)
 {
 	int		counter;
@@ -55,18 +45,17 @@ int	in_door(t_core *core)
 		return (1);
 	if (core->data->map[j][i] == 'B')
 		return (2);
-	//if (core->data->map[j][i] == 'X')
-	//	return (3);
+	if (core->data->map[j][i] == 'X')
+		return (3);
 	if (core->data->map[j][i] == '4')
 		return (4);
+	if (core->data->map[j][i] == 'T')
+		return (5);
 	return (0);
 }
 
-int	get_pixel(t_core *core, double angle, double c2)
+int	get_special_texture(t_core *core, int counter)
 {
-	int	counter;
-
-	counter = get_counter(core, c2);
 	if (in_door(core) == 1)
 		return (core->img_door.data[counter]);
 	if (in_door(core) == 2)
@@ -75,6 +64,18 @@ int	get_pixel(t_core *core, double angle, double c2)
 		return (core->bomb.empty.data[counter]);
 	if (in_door(core) == 4)
 		return (core->bomb.wall.data[counter]);
+	if (in_door(core) == 5)
+		return (core->bomb.t.data[counter]);
+	return (core->bomb.t.data[counter]);
+}
+
+int	get_pixel(t_core *core, double angle, double c2)
+{
+	int	counter;
+
+	counter = get_counter(core, c2);
+	if (in_door(core) != 0)
+		return (get_special_texture(core, counter));
 	if (core->ray->flag == 1)
 	{
 		if (angle > PI / 2 && angle < 3 * PI / 2)

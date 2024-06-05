@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:06:13 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/04 13:35:10 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:05:01 by mevonuk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,17 @@ void	init_bomb(t_core *core)
 			&core->bomb.empty.bpp, &core->bomb.empty.size_l,
 			&core->bomb.empty.endian);
 	core->bomb.wall.ptr = mlx_xpm_file_to_image(core->mlx,
-			"./src/textures/bomb_wall.xpm", &(core->bomb.wall).width,
+			"./src/textures/crumbling_peace.xpm", &(core->bomb.wall).width,
 			&core->bomb.wall.height);
 	core->bomb.wall.data = (int *)mlx_get_data_addr(core->bomb.wall.ptr,
 			&core->bomb.wall.bpp, &core->bomb.wall.size_l,
 			&core->bomb.wall.endian);
+	core->bomb.t.ptr = mlx_xpm_file_to_image(core->mlx,
+			"./src/textures/exit.xpm", &(core->bomb.t).width,
+			&core->bomb.wall.height);
+	core->bomb.t.data = (int *)mlx_get_data_addr(core->bomb.t.ptr,
+			&core->bomb.t.bpp, &core->bomb.t.size_l,
+			&core->bomb.t.endian);
 }
 
 int	make_image(t_core *core)
@@ -104,6 +110,7 @@ int	make_image(t_core *core)
 	mlx_destroy_image(core->mlx, core->bomb.full.ptr);
 	mlx_destroy_image(core->mlx, core->bomb.empty.ptr);
 	mlx_destroy_image(core->mlx, core->bomb.wall.ptr);
+	mlx_destroy_image(core->mlx, core->bomb.t.ptr);
 	move_player(core);
 	return (0);
 }

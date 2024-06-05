@@ -23,9 +23,11 @@ int	color_2d_map(t_core *core, int count_h, int count_w, int scale)
 	if (core->data->map[count_h / scale][count_w / scale] == '4')
 		return (create_trgb(1, 120, 120, 120));
 	if (core->data->map[count_h / scale][count_w / scale] == 'B')
-		return (create_trgb(1, 255, 255, 0));
+		return (create_trgb(1, 255, 0, 0));
 	if (core->data->map[count_h / scale][count_w / scale] == 'X')
-		return (create_trgb(1, 1, 255, 0));
+		return (create_trgb(1, 0, 255, 0));
+	if (core->data->map[count_h / scale][count_w / scale] == 'T')
+		return (create_trgb(1, 0, 0, 255));
 	return (create_trgb(1, 0, 0, 0));
 }
 
@@ -57,6 +59,32 @@ void	plot_direction(t_core *core, int i, double angle)
 	}
 }
 
+void	plot_bombs(t_core *core, int scale)
+{
+	int	i;
+	int	j;
+	int	b;
+	int	r;
+
+	b = -1;
+	r = 5;
+	while (++b < core->player->bomb_count)
+	{
+		i = -1;
+		while (++i < 2 * r)
+		{
+			j = -1;
+			while (++j < 2 * r)
+			{
+				if (((i - r) * (i - r) + (j - r) * (j - r)) < r * r)
+					img_pix_put(core, j + b * 12,
+						i + core->data->height * scale + 1,
+						create_trgb(1, 255, 0, 0));
+			}
+		}
+	}
+}
+
 void	plot_position(t_core *core, int scale)
 {
 	int	px;
@@ -75,6 +103,8 @@ void	plot_position(t_core *core, int scale)
 		while (++count_w < px + 3)
 			img_pix_put(core, count_w, count_h, color);
 	}
+	if (core->player->bomb_count > 0)
+		plot_bombs(core, scale);
 }
 
 void	toggle_map(t_core *core)

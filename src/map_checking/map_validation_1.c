@@ -16,7 +16,7 @@ int	ft_is_not_element(char c)
 {
 	if (c != '1' && c != '0' && c != ' ' && c != 'N'
 		&& c != 'S' && c != 'E' && c != 'W' && c != '\n' && c != '2'
-		&& c != '4' && c != 'B' && c != 'X')
+		&& c != '4' && c != 'B' && c != 'X' && c != 'T')
 		return (1);
 	else
 		return (0);
