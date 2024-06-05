@@ -31,7 +31,7 @@
 
 # define S_W 620				// screen width
 # define S_H 400				// screen height
-# define MAX_TILE 100			// maximum size of map
+# define MAX_TILE 2			// maximum size of map
 # define TILE_SIZE 64			// tile size
 # define FOV 60					// field of view
 # define ROTATION_SPEED 0.02	// rotation speed
