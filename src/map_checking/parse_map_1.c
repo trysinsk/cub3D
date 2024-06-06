@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:53:29 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/05 11:57:36 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:44:00 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ t_color	get_color(t_core *core, char *line)
 		return (ret);
 	color++;
 	ctab = ft_split(color, ',');
-	ret.r = ft_atoi(ctab[0]);
-	ret.g = ft_atoi(ctab[1]);
-	ret.b = ft_atoi(ctab[2]);
+	ret.r = ft_atoi_color(ctab[0]);
+	ret.g = ft_atoi_color(ctab[1]);
+	ret.b = ft_atoi_color(ctab[2]);
 	ft_free_tab(ctab);
 	rgb_color_check(core, line, ret);
 	return (ret);
@@ -60,13 +60,13 @@ char	*get_path(t_core *core, char *line)
 
 void	fill_texture(t_core *core, char *line)
 {
-	if (!ft_strncmp(line, "NO", 2))
+	if (!ft_strncmp(line, "NO", 2) && core->data->no == NULL)
 		core->data->no = get_path(core, line);
-	else if (!ft_strncmp(line, "SO", 2))
+	else if (!ft_strncmp(line, "SO", 2) && core->data->so == NULL)
 		core->data->so = get_path(core, line);
-	else if (!ft_strncmp(line, "WE", 2))
+	else if (!ft_strncmp(line, "WE", 2) && core->data->we == NULL)
 		core->data->we = get_path(core, line);
-	else if (!ft_strncmp(line, "EA", 2))
+	else if (!ft_strncmp(line, "EA", 2) && core->data->ea == NULL)
 		core->data->ea = get_path(core, line);
 	else if (!ft_strncmp(line, "F", 1))
 		core->data->f = get_color(core, line);
