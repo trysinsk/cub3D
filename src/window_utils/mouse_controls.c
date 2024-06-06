@@ -23,10 +23,14 @@ int	mouse_on(int button, int x, int y, t_core *core)
 		core->player->rotation = 1;
 	if (button == MOUSE_WHEEL_BTN)
 		interact(core);
-	else if (button == MOUSE_WHEEL_UP)
-		move_up(core);
-	else if (button == MOUSE_WHEEL_DOWN)
-		move_down(core);
+	if (button == MOUSE_WHEEL_UP)
+		core->fov += 10;
+	if (button == MOUSE_WHEEL_DOWN)
+		core->fov -= 10;
+	if (core->fov < 30)
+		core->fov = 30;
+	if (core->fov > 120)
+		core->fov = 120;
 	return (0);
 }
 

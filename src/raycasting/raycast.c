@@ -12,12 +12,12 @@
 
 #include "cub3D.h"
 
-int	height_of_wall(double dist)
+int	height_of_wall(t_core *core, double dist)
 {
 	double	height;
 	double	d_to_p;
 
-	d_to_p = S_W / 2 / tan(FOV * PI / 180 / 2);
+	d_to_p = S_W / 2 / tan(core->fov * PI / 180 / 2);
 	height = d_to_p * TILE_SIZE / dist;
 	return ((int)(height));
 }
@@ -89,8 +89,8 @@ void	raycast_loop(t_core *core)
 	double	dist;
 	double	delta_r;
 
-	core->ray->angle = core->player->angle + (FOV * PI / 180 / 2);
-	delta_r = FOV * PI / 180 / S_W;
+	core->ray->angle = core->player->angle + (core->fov * PI / 180 / 2);
+	delta_r = core->fov * PI / 180 / S_W;
 	i = -1;
 	while (++i < S_W)
 	{
@@ -106,7 +106,7 @@ void	raycast_loop(t_core *core)
 			core->ray->flag = 1;
 		}
 		dist = dist * cos(core->ray->angle - core->player->angle);
-		insert_column(core, i, height_of_wall(dist), core->ray->angle);
+		insert_column(core, i, height_of_wall(core, dist), core->ray->angle);
 		core->ray->angle -= delta_r;
 	}
 }
