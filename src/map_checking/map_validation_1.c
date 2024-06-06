@@ -6,11 +6,39 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 08:32:14 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/03 08:51:53 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:41:16 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	ft_atoi_color(const char *nptr)
+{
+	int	i;
+	int	sign;
+	int	nb;
+
+	i = 0;
+	sign = 1;
+	nb = 0;
+	if (!nptr)
+		return (256);
+	while (nptr && nptr[i] != '\0'
+		&& (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13)))
+		i++;
+	if (nptr && (nptr[i] == '+' || nptr[i] == '-'))
+	{
+		if (nptr[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (nptr != NULL && ft_isdigit(nptr[i]))
+	{
+		nb = nb * 10 + (nptr[i] - '0');
+		i++;
+	}
+	return (sign * nb);
+}
 
 int	ft_is_not_element(char c)
 {

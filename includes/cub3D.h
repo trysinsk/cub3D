@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:03:20 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/05 12:13:25 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:35:26 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ int		check_texture_file(t_core *core);
 int		check_special_texture(void);
 void	ft_image_extention_check(t_core *core, char *file, char *ret);
 void	rgb_color_check(t_core *core, char *line, t_color color);
+int		ft_atoi_color(const char *nptr);
 
 //		raycasting
 void	raycast_loop(t_core *core);
