@@ -31,6 +31,7 @@ void	init_player(t_core *core)
 void	init_ray(t_core *core)
 {
 	core->fov = 60;
+	core->bomb.h_flag = 0;
 	core->ray = (t_ray *)malloc(sizeof(t_ray));
 	if (!core->ray)
 	{

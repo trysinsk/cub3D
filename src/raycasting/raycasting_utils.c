@@ -24,7 +24,8 @@ int	in_wall(double x, double y, t_core *core)
 		return (0);
 	if (core->data->map[j][i] == '1' || core->data->map[j][i] == '2'
 		|| core->data->map[j][i] == '4' || core->data->map[j][i] == 'B'
-		|| core->data->map[j][i] == 'X' || core->data->map[j][i] == 'T')
+		|| core->data->map[j][i] == 'X' || core->data->map[j][i] == 'T'
+		|| core->data->map[j][i] == 'H' || core->data->map[j][i] == 'h')
 		return (1);
 	return (0);
 }

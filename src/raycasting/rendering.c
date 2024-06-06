@@ -26,21 +26,32 @@ int	get_counter(t_core *core, double c2)
 	return (counter);
 }
 
+int	get_ij(t_core *core, char c)
+{
+	if (c == 'i')
+	{
+		if (core->ray->flag == 0)
+			return (floor(core->ray->pxh / TILE_SIZE));
+		else
+			return (floor(core->ray->pxv / TILE_SIZE));
+	}
+	else if (c == 'j')
+	{
+		if (core->ray->flag == 0)
+			return (floor(core->ray->pyh / TILE_SIZE));
+		else
+			return (floor(core->ray->pyv / TILE_SIZE));
+	}
+	return (0);
+}
+
 int	in_special(t_core *core)
 {
 	int	i;
 	int	j;
 
-	if (core->ray->flag == 0)
-	{
-		i = floor(core->ray->pxh / TILE_SIZE);
-		j = floor(core->ray->pyh / TILE_SIZE);
-	}
-	else
-	{
-		i = floor(core->ray->pxv / TILE_SIZE);
-		j = floor(core->ray->pyv / TILE_SIZE);
-	}
+	i = get_ij(core, 'i');
+	j = get_ij(core, 'j');
 	if (core->data->map[j][i] == '2')
 		return (1);
 	if (core->data->map[j][i] == 'B')
@@ -51,6 +62,10 @@ int	in_special(t_core *core)
 		return (4);
 	if (core->data->map[j][i] == 'T')
 		return (5);
+	if (core->data->map[j][i] == 'H')
+		return (6);
+	if (core->data->map[j][i] == 'h')
+		return (7);
 	return (0);
 }
 
@@ -66,6 +81,8 @@ int	get_special_texture(t_core *core, int counter)
 		return (core->bomb.wall.data[counter]);
 	if (in_special(core) == 5)
 		return (core->bomb.t.data[counter]);
+	if (in_special(core) == 6 || in_special(core) == 7)
+		return (core->bomb.hole.data[counter]);
 	return (core->bomb.t.data[counter]);
 }
 

@@ -17,6 +17,8 @@ int	valid_wall(char **map, int y, int x)
 	if (map[y][x] == '1' || map[y][x] == '2' || map[y][x] == '4'
 		|| map[y][x] == 'B' || map[y][x] == 'X' || map[y][x] == 'T')
 		return (1);
+	//if (map[y][x] == 'h' || map[y][x] == 'H')
+	//	return (1);
 	return (0);
 }
 
@@ -79,15 +81,13 @@ void	interact_object(t_core *core, int new_pos_x, int new_pos_y)
 	{
 		core->player->bomb_count += 1;
 		core->data->map[new_pos_y][new_pos_x] = 'X';
-		printf("you picked up a bomb\n");
-		printf("you have %d bomb\n", core->player->bomb_count);
+		printf("you have %d bomb(s)\n", core->player->bomb_count);
 	}
 	if (core->data->map[new_pos_y][new_pos_x] == '4'
 		&& core->player->bomb_count > 0)
 	{
 		core->player->bomb_count -= 1;
 		core->data->map[new_pos_y][new_pos_x] = '0';
-		printf("you destroyed a fake wall\n");
 	}
 	if (core->data->map[new_pos_y][new_pos_x] == 'T')
 		on_destroy(core);

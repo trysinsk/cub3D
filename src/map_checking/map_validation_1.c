@@ -16,10 +16,30 @@ int	ft_is_not_element(char c)
 {
 	if (c != '1' && c != '0' && c != ' ' && c != 'N'
 		&& c != 'S' && c != 'E' && c != 'W' && c != '\n' && c != '2'
-		&& c != '4' && c != 'B' && c != 'X' && c != 'T')
+		&& c != '4' && c != 'B' && c != 'X' && c != 'T'
+		&& c != 'H' && c != 'h')
 		return (1);
 	else
 		return (0);
+}
+
+void	set_wormholes(t_core *core, int y, int x, char c)
+{
+	if (c == 'h')
+	{
+		core->bomb.xh1 = x
+			* TILE_SIZE + TILE_SIZE / 2;
+		core->bomb.yh1 = y
+			* TILE_SIZE + TILE_SIZE / 2;
+	}
+	if (c == 'H')
+	{
+		core->bomb.xh2 = x
+			* TILE_SIZE + TILE_SIZE / 2;
+		core->bomb.yh2 = y
+			* TILE_SIZE + TILE_SIZE / 2;
+	}
+	printf("hole %c is at %d %d\n", c, x, y);
 }
 
 int	ft_is_player_pos(char c, t_core *core, int y, int x)
@@ -46,6 +66,7 @@ int	ft_is_player_pos(char c, t_core *core, int y, int x)
 	else
 		return (1);
 	core->player->an_rad = (core->fov * PI) / 180;
+	set_wormholes(core, y, x, c);
 	return (0);
 }
 

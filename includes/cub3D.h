@@ -126,6 +126,12 @@ typedef struct s_bomb
 	t_img	empty;
 	t_img	wall;
 	t_img	t;
+	t_img	hole;
+	int		h_flag;
+	int		xh1;
+	int		yh1;
+	int		xh2;
+	int		yh2;
 }	t_bomb;
 
 typedef struct s_core
