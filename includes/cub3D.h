@@ -29,8 +29,8 @@
 # include <X11/X.h>
 # include "libft.h"
 
-# define S_W 620				// screen width
-# define S_H 400				// screen height
+# define S_W 1240				// screen width
+# define S_H 800				// screen height
 # define MAX_TILE 100			// maximum size of map
 # define TILE_SIZE 64			// tile size
 # define ROTATION_SPEED 0.025	// rotation speed

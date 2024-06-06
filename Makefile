@@ -84,8 +84,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -f $(LIBFT_PATH)$(LIBFT_NAME)
 
-re: fclean
-	all
+re: fclean all
 
 bonus: all
 
