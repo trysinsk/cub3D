@@ -31,6 +31,7 @@ t_color	get_color(t_core *core, char *line)
 	ret.b = ft_atoi_color(ctab[2]);
 	ft_free_tab(ctab);
 	rgb_color_check(core, line, ret);
+	printf("Note that non-numeric color choices are set to zero.\n");
 	return (ret);
 }
 
