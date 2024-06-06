@@ -12,6 +12,34 @@
 
 #include "cub3D.h"
 
+int	check_num_wormholes(t_core *core)
+{
+	int	x;
+	int	y;
+	int	lower_h;
+	int	upper_h;
+
+	lower_h = 0;
+	upper_h = 0;
+	y = 0;
+	while (core->data->map[y])
+	{
+		x = 0;
+		while (core->data->map[y][x] != '\0')
+		{
+			if (core->data->map[y][x] == 'h')
+				lower_h++;
+			if (core->data->map[y][x] == 'H')
+				upper_h++;
+			x++;
+		}
+		y++;
+	}
+	if (lower_h > 1 || upper_h > 1 || lower_h != upper_h)
+		return (1);
+	return (0);
+}
+
 void	set_wormholes(t_core *core, int y, int x, char c)
 {
 	if (c == 'h')

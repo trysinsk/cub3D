@@ -203,6 +203,7 @@ int		get_special_texture(t_core *core, int counter);
 void	check_wormhole(t_core *core);
 void	init_wormhole(t_core *core);
 void	set_wormholes(t_core *core, int y, int x, char c);
+int		check_num_wormholes(t_core *core);
 
 //		moves
 int		stop_flag(int keycode, t_core *core);
