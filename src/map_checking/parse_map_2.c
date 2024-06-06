@@ -17,6 +17,8 @@ void	print_map(t_core *core)
 	int	i;
 
 	i = 0;
+	printf("Map dimensions: %d by %d\n",
+		core->data->width - 1, core->data->height);
 	while ((core)->data->map[i] != NULL)
 	{
 		ft_printf("%s", (core->data->map[i]));

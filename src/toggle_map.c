@@ -14,21 +14,29 @@
 
 int	color_2d_map(t_core *core, int count_h, int count_w, int scale)
 {
-	if (core->data->map[count_h / scale][count_w / scale] == '1')
+	int	i;
+	int	j;
+
+	i = count_w / scale;
+	j = count_h / scale;
+	if (i < 0 || i >= (int)ft_strlen(core->data->map[j])
+		|| j < 0 || j >= core->data->height)
+		return (create_trgb(1, 1, 1, 1));
+	if (core->data->map[j][i] == '1')
 		return (create_trgb(1, 255, 255, 255));
-	if (core->data->map[count_h / scale][count_w / scale] == '3')
+	if (core->data->map[j][i] == '3')
 		return (create_trgb(1, 100, 10, 100));
-	if (core->data->map[count_h / scale][count_w / scale] == '2')
+	if (core->data->map[j][i] == '2')
 		return (create_trgb(1, 200, 20, 200));
-	if (core->data->map[count_h / scale][count_w / scale] == '4')
+	if (core->data->map[j][i] == '4')
 		return (create_trgb(1, 120, 120, 120));
-	if (core->data->map[count_h / scale][count_w / scale] == 'B')
+	if (core->data->map[j][i] == 'B')
 		return (create_trgb(1, 255, 0, 0));
-	if (core->data->map[count_h / scale][count_w / scale] == 'X')
+	if (core->data->map[j][i] == 'X')
 		return (create_trgb(1, 0, 255, 0));
-	if (core->data->map[count_h / scale][count_w / scale] == 'T')
+	if (core->data->map[j][i] == 'T')
 		return (create_trgb(1, 0, 0, 255));
-	return (create_trgb(1, 0, 0, 0));
+	return (create_trgb(1, 1, 1, 1));
 }
 
 void	plot_direction(t_core *core, int i, double angle)
