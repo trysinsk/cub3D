@@ -17,8 +17,6 @@ int	valid_wall(char **map, int y, int x)
 	if (map[y][x] == '1' || map[y][x] == '2' || map[y][x] == '4'
 		|| map[y][x] == 'B' || map[y][x] == 'X' || map[y][x] == 'T')
 		return (1);
-	//if (map[y][x] == 'h' || map[y][x] == 'H')
-	//	return (1);
 	return (0);
 }
 

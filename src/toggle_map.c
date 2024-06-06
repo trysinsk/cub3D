@@ -35,9 +35,9 @@ int	color_2d_map(t_core *core, int count_h, int count_w, int scale)
 	if (core->data->map[j][i] == 'X')
 		return (create_trgb(1, 0, 255, 0));
 	if (core->data->map[j][i] == 'T')
-		return (create_trgb(1, 0, 50, 255));
+		return (create_trgb(1, 250, 250, 50));
 	if (core->data->map[j][i] == 'H' || core->data->map[j][i] == 'h')
-		return (create_trgb(1, 150, 150, 50));
+		return (create_trgb(1, 50, 50, 255));
 	return (create_trgb(1, 1, 1, 1));
 }
 

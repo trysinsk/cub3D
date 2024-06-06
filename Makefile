@@ -39,8 +39,9 @@ MAP_CHECKING	=	$(addprefix map_checking/, extention_check.c \
 ERROR_MANAGING	=	$(addprefix error_managing/, quit.c)
 WINDOW_UTILS	=	$(addprefix window_utils/, utils.c color.c move1.c move2.c \
 					rotation.c mouse_controls.c )
-RAYCASTING		=	$(addprefix raycasting/, raycast.c raycasting_utils.c rendering.c )
-SRC 			=	cub3D.c clean.c init.c toggle_map.c\
+RAYCASTING		=	$(addprefix raycasting/, raycast.c raycasting_utils.c \
+					rendering.c special_texture.c )
+SRC 			=	cub3D.c clean.c init.c toggle_map.c wormhole.c \
 					$(MAP_CHECKING) \
 					$(ERROR_MANAGING) \
 					$(WINDOW_UTILS) \

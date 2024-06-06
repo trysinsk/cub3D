@@ -12,53 +12,39 @@
 
 #include "cub3D.h"
 
-int	check_texture_file(t_core *core)
+int	open_file(char *file)
 {
 	int	fd;
 
-	fd = open(core->data->no, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	close (fd);
-	fd = open(core->data->so, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	close (fd);
-	fd = open(core->data->ea, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	close (fd);
-	fd = open(core->data->we, O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (1);
 	close (fd);
 	return (0);
 }
 
-int	check_special_texture(void)
+int	check_texture_file(t_core *core)
 {
-	int	fd;
-
-	fd = open("./src/textures/bomb_full.xpm", O_RDONLY);
-	if (fd < 0)
+	if (open_file(core->data->no) == 1)
 		return (1);
-	close (fd);
-	fd = open("./src/textures/bomb_empty.xpm", O_RDONLY);
-	if (fd < 0)
+	if (open_file(core->data->so) == 1)
 		return (1);
-	close (fd);
-	fd = open("./src/textures/crumbling_peace.xpm", O_RDONLY);
-	if (fd < 0)
+	if (open_file(core->data->ea) == 1)
 		return (1);
-	close (fd);
-	fd = open("./src/textures/exit.xpm", O_RDONLY);
-	if (fd < 0)
+	if (open_file(core->data->we) == 1)
 		return (1);
-	close (fd);
-	fd = open("./src/textures/door_closed.xpm", O_RDONLY);
-	if (fd < 0)
+	if (open_file("./src/textures/bomb_full.xpm") == 1)
 		return (1);
-	close (fd);
+	if (open_file("./src/textures/bomb_empty.xpm") == 1)
+		return (1);
+	if (open_file("./src/textures/crumbling_peace.xpm") == 1)
+		return (1);
+	if (open_file("./src/textures/exit.xpm") == 1)
+		return (1);
+	if (open_file("./src/textures/door_closed.xpm") == 1)
+		return (1);
+	if (open_file("./src/textures/drwho.xpm") == 1)
+		return (1);
 	return (0);
 }
 

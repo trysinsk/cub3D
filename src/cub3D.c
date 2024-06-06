@@ -87,37 +87,6 @@ void	init_bomb(t_core *core)
 	core->bomb.t.data = (int *)mlx_get_data_addr(core->bomb.t.ptr,
 			&core->bomb.t.bpp, &core->bomb.t.size_l,
 			&core->bomb.t.endian);
-	core->bomb.hole.ptr = mlx_xpm_file_to_image(core->mlx,
-			"./src/textures/tree.xpm", &(core->bomb.hole).width,
-			&core->bomb.hole.height);
-	core->bomb.hole.data = (int *)mlx_get_data_addr(core->bomb.hole.ptr,
-			&core->bomb.hole.bpp, &core->bomb.hole.size_l,
-			&core->bomb.hole.endian);
-}
-
-void	check_wormhole(t_core *core)
-{
-	int	x;
-	int	y;
-
-	x = floor(core->player->player_x / TILE_SIZE);
-	y = floor(core->player->player_y / TILE_SIZE);
-	if (core->bomb.h_flag == 0
-		&& (core->data->map[y][x] == 'h' || core->data->map[y][x] == 'H'))
-	{
-		printf("Activating wormhole\n");
-		core->bomb.h_flag = 1;
-		if (core->data->map[y][x] == 'h')
-		{
-			core->player->player_x = core->bomb.xh2;
-			core->player->player_y = core->bomb.yh2;
-		}
-		else if (core->data->map[y][x] == 'H')
-		{
-			core->player->player_x = core->bomb.xh1;
-			core->player->player_y = core->bomb.yh1;
-		}
-	}
 }
 
 int	make_image(t_core *core)
@@ -127,6 +96,7 @@ int	make_image(t_core *core)
 			&core->line_len, &core->endian);
 	init_textures(core);
 	init_bomb(core);
+	init_wormhole(core);
 	cieling_floor(core);
 	raycast_loop(core);
 	check_wormhole(core);

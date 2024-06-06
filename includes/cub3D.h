@@ -181,7 +181,6 @@ int		ft_map_validation(t_core *core);
 int		ft_check_outer_walls(t_core *core, char **map, int x, int y);
 int		ft_check_spaces(t_core *core, char **map, int x, int y);
 int		check_texture_file(t_core *core);
-int		check_special_texture(void);
 void	ft_image_extention_check(t_core *core, char *file, char *ret);
 void	rgb_color_check(t_core *core, char *line, t_color color);
 int		ft_atoi_color(const char *nptr);
@@ -197,6 +196,13 @@ int		in_wall(double x, double y, t_core *core);
 
 //2D map
 void	toggle_map(t_core *core);
+
+// special
+int		in_special(t_core *core);
+int		get_special_texture(t_core *core, int counter);
+void	check_wormhole(t_core *core);
+void	init_wormhole(t_core *core);
+void	set_wormholes(t_core *core, int y, int x, char c);
 
 //		moves
 int		stop_flag(int keycode, t_core *core);
