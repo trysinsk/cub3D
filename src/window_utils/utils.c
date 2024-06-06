@@ -43,6 +43,7 @@ int	on_destroy(t_core *data)
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
+	printf("You have exited the game.\n");
 	clean_data(data);
 	exit(0);
 	return (0);
