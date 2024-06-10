@@ -18,6 +18,8 @@ char	*get_path(t_core *core, char *line)
 	char	*path;
 	int		i;
 
+	if (ft_strlen(line) < 5)
+		return (NULL);
 	ret = (char *)malloc((ft_strlen(line) + 1) * sizeof(char));
 	if (!ret)
 		return (NULL);
