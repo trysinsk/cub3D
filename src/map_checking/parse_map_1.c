@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-t_color	get_color(t_core *core, char *line)
+t_color	get_color(char *line)
 {
 	t_color	ret;
 	char	*color;
@@ -30,7 +30,7 @@ t_color	get_color(t_core *core, char *line)
 	ret.g = ft_atoi_color(ctab[1]);
 	ret.b = ft_atoi_color(ctab[2]);
 	ft_free_tab(ctab);
-	rgb_color_check(core, line, ret);
+	rgb_color_check(&ret);
 	printf("Note that non-numeric color choices are set to zero.\n");
 	return (ret);
 }
@@ -70,9 +70,9 @@ void	fill_texture(t_core *core, char *line)
 	else if (!ft_strncmp(line, "EA", 2) && core->data->ea == NULL)
 		core->data->ea = get_path(core, line);
 	else if (!ft_strncmp(line, "F", 1))
-		core->data->f = get_color(core, line);
+		core->data->f = get_color(line);
 	else if (!ft_strncmp(line, "C", 1))
-		core->data->c = get_color(core, line);
+		core->data->c = get_color(line);
 }
 
 int	check_texture(char *line)
