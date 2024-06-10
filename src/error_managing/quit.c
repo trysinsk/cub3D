@@ -14,7 +14,7 @@
 
 void	ft_quit(char *str, t_core *core)
 {
-	printf("Error\n");
+	printf("Error: ");
 	printf("%s", str);
 	clean_data(core);
 	exit (1);

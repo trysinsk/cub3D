@@ -184,6 +184,7 @@ int		check_texture_file(t_core *core);
 void	ft_image_extention_check(t_core *core, char *file, char *ret);
 void	rgb_color_check(t_color *color);
 int		ft_atoi_color(const char *nptr);
+t_color	get_color(char *line);
 
 //		raycasting
 void	raycast_loop(t_core *core);

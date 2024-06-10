@@ -111,6 +111,8 @@ int	ft_check_num_var(t_core *core)
 
 int	ft_map_validation(t_core *core)
 {
+	rgb_color_check(&core->data->c);
+	rgb_color_check(&core->data->f);
 	if (ft_check_num_var(core) != 0 || check_num_wormholes(core) != 0)
 		return (1);
 	if (ft_check_outer_walls(core, core->data->map, 0, 0) != 0)

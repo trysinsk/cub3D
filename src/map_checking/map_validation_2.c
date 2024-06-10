@@ -16,6 +16,8 @@ int	open_file(char *file)
 {
 	int	fd;
 
+	if (file == NULL)
+		return (1);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (1);

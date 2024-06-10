@@ -42,6 +42,16 @@ void	init_ray(t_core *core)
 	}
 }
 
+void	init_color(t_core *core)
+{
+	core->data->c.r = -1;
+	core->data->c.g = 0;
+	core->data->c.b = 0;
+	core->data->f.r = -1;
+	core->data->f.g = 0;
+	core->data->f.b = 0;
+}
+
 void	init_data(t_core **core)
 {
 	*core = (t_core *)malloc(1 * sizeof(t_core));
@@ -60,6 +70,7 @@ void	init_data(t_core **core)
 		(*core)->data->so = NULL;
 		(*core)->data->we = NULL;
 		(*core)->data->ea = NULL;
+		init_color(*core);
 	}
 	init_player(*core);
 	init_ray(*core);

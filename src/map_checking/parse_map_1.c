@@ -12,48 +12,6 @@
 
 #include "cub3D.h"
 
-int split_check(int i, char **ctab)
-{
-	while (i < 2)
-	{
-		if (ctab[i] == NULL)
-		{
-			printf("error, missing values for color, going default\n");
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-t_color	get_color(char *line)
-{
-	t_color	ret;
-	char	*color;
-	char	**ctab;
-
-	ret.r = 0;
-	ret.g = 0;
-	ret.b = 0;
-	color = ft_strchr(line, ' ');
-	if (color == NULL || color == line)
-		return (ret);
-	color++;
-	ctab = ft_split(color, ',');
-	if (split_check(0, ctab) == 1)
-	{
-		ft_free_tab(ctab);
-		return (ret);
-	}
-	ret.r = ft_atoi_color(ctab[0]);
-	ret.g = ft_atoi_color(ctab[1]);
-	ret.b = ft_atoi_color(ctab[2]);
-	ft_free_tab(ctab);
-	rgb_color_check(&ret);
-	printf("Note that non-numeric color choices are set to zero.\n");
-	return (ret);
-}
-
 char	*get_path(t_core *core, char *line)
 {
 	char	*ret;
@@ -80,17 +38,17 @@ char	*get_path(t_core *core, char *line)
 
 void	fill_texture(t_core *core, char *line)
 {
-	if (!ft_strncmp(line, "NO", 2) && core->data->no == NULL)
+	if (!ft_strncmp(line, "NO ", 3) && core->data->no == NULL)
 		core->data->no = get_path(core, line);
-	else if (!ft_strncmp(line, "SO", 2) && core->data->so == NULL)
+	else if (!ft_strncmp(line, "SO ", 3) && core->data->so == NULL)
 		core->data->so = get_path(core, line);
-	else if (!ft_strncmp(line, "WE", 2) && core->data->we == NULL)
+	else if (!ft_strncmp(line, "WE ", 3) && core->data->we == NULL)
 		core->data->we = get_path(core, line);
-	else if (!ft_strncmp(line, "EA", 2) && core->data->ea == NULL)
+	else if (!ft_strncmp(line, "EA ", 3) && core->data->ea == NULL)
 		core->data->ea = get_path(core, line);
-	else if (!ft_strncmp(line, "F", 1))
+	else if (!ft_strncmp(line, "F ", 2) && core->data->f.r == -1)
 		core->data->f = get_color(line);
-	else if (!ft_strncmp(line, "C", 1))
+	else if (!ft_strncmp(line, "C ", 2) && core->data->c.r == -1)
 		core->data->c = get_color(line);
 }
 
@@ -98,9 +56,9 @@ int	check_texture(char *line)
 {
 	while ((*line == ' ' || (*line >= 9 && *line <= 13)))
 		line++;
-	if ((!ft_strncmp(line, "NO", 2) || !ft_strncmp(line, "SO", 2)
-			|| !ft_strncmp(line, "WE", 2) || !ft_strncmp(line, "EA", 2))
-		|| (!ft_strncmp(line, "F", 1) || !ft_strncmp(line, "C", 1)))
+	if ((!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
+			|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3))
+		|| (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2)))
 		return (1);
 	return (0);
 }

@@ -41,19 +41,3 @@ void	ft_image_extention_check(t_core *core, char *file, char *ret)
 		exit(0);
 	}
 }
-
-void	rgb_color_check(t_color *color)
-{
-	if (color->r < 0)
-		color->r = 0;
-	if (color->g < 0)
-		color->g = 0;
-	if (color->b < 0)
-		color->b = 0;
-	if (color->r > 255)
-		color->r = 255;
-	if (color->g > 255)
-		color->g = 255;
-	if (color->b > 255)
-		color->b = 255;
-}

@@ -35,7 +35,7 @@ INC			=	-I ./includes/\
 SRC_PATH	=	src/
 MAP_CHECKING	=	$(addprefix map_checking/, extention_check.c \
 					parse_map_1.c parse_map_2.c map_validation_1.c \
-					map_validation_2.c)
+					map_validation_2.c parse_color.c )
 ERROR_MANAGING	=	$(addprefix error_managing/, quit.c)
 WINDOW_UTILS	=	$(addprefix window_utils/, utils.c color.c move1.c move2.c \
 					rotation.c mouse_controls.c )
