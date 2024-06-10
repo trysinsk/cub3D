@@ -6,7 +6,7 @@
 /*   By: trysinsk <trysinsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:53:29 by trysinsk          #+#    #+#             */
-/*   Updated: 2024/06/06 13:44:00 by trysinsk         ###   ########.fr       */
+/*   Updated: 2024/06/10 09:30:14 by trysinsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ t_color	get_color(t_core *core, char *line)
 	t_color	ret;
 	char	*color;
 	char	**ctab;
+	int		i;
 
+	i = 0;
 	ret.r = 0;
 	ret.g = 0;
 	ret.b = 0;
@@ -26,6 +28,12 @@ t_color	get_color(t_core *core, char *line)
 		return (ret);
 	color++;
 	ctab = ft_split(color, ',');
+	while (i < 2)
+	{
+		if (ctab[i] == NULL)
+			printf("error\n");
+		i++;
+	}
 	ret.r = ft_atoi_color(ctab[0]);
 	ret.g = ft_atoi_color(ctab[1]);
 	ret.b = ft_atoi_color(ctab[2]);
